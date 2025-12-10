@@ -3,3 +3,7 @@
 Lien vers gdyn : https://github.com/HerveFrezza-Buet/gdyn
 Lien vers rllib2 : https://github.com/HerveFrezza-Buet/rllib2
 
+Lire le poly sur la programmation dynamique (RL) : 24.3
+
+prochain mercredi 17/12 11h00 : présentation Q-Learning + rllib2
+
