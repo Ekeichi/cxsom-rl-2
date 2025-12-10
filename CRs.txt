@@ -1,0 +1,5 @@
+## 10/12/2025
+
+Lien vers gdyn : https://github.com/HerveFrezza-Buet/gdyn
+Lien vers rllib2 : https://github.com/HerveFrezza-Buet/rllib2
+
