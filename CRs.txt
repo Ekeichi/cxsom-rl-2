@@ -7,3 +7,22 @@ Lire le poly sur la programmation dynamique (RL) : 24.3
 
 prochain mercredi 17/12 11h00 : présentation Q-Learning + rllib2
 
+
+## 21/01/2026
+
+Bilan:
+- cxsom pigé.
+
+But : utiliser rocket pour produire des données d'un contrôleur qui marche (via l'exemple de rllib2). Entraîner des cartes CXSOM pour apprendre la relation e, de -> thurst
+
+Voir si ça marche (réaliser une fusée contrôlée par le cxsom appris).*
+
+Prochaine fois : "refaire" completion-xsom avec les données de fusée.
+
+Prochaine : 2/02 à 13h30
+
+
+
+
+
+
