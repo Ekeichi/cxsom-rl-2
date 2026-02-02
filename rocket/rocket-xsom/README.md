@@ -2,7 +2,7 @@ Here, we set up 3 connected SOMs. Each one is connected to the two others by a f
 
 ## Known Issues & troubleshooting
 
-During the development of this experiment, we encountered and resolved two critical issues:
+During the development of this experiment, we encountered and resolved one critical issue:
 
 1.  **Empty Prediction Output**:
     *   **Problem**: `make show-predictions` fails with `RuntimeError: No mappable was found` or shows "Loaded 1 points".
