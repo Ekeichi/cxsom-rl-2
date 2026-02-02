@@ -1,15 +1,10 @@
 Here, we set up 3 connected SOMs. Each one is connected to the two others by a forward and a feedback connection. Let us experiment this. We have customized a [makefile](makefile) for that purpose, read it.
 
-## Known Issues & Troubleshooting
+## Known Issues & troubleshooting
 
 During the development of this experiment, we encountered and resolved two critical issues:
 
-1.  **Dataset Generation Error**:
-    *   **Problem**: `AttributeError: module 'pycxsom.variable' has no attribute 'Update'` in `build-rocket-dataset.py`.
-    *   **Cause**: The method `Update` does not exist in the installed `pycxsom` version.
-    *   **Solution**: Replaced `Update` with `cx.variable.Realize`. Ensure you run `make inputs-setup` with the corrected script.
-
-2.  **Empty Prediction Output**:
+1.  **Empty Prediction Output**:
     *   **Problem**: `make show-predictions` fails with `RuntimeError: No mappable was found` or shows "Loaded 1 points".
     *   **Cause**: Running `make predict WEIGHTS_AT=30000` when the training hasn't reached step 30000. The processor waits indefinitely for weight files that don't exist.
     *   **Solution**: Ensure you have fully trained the model (`make feed-train-inputs WALLTIME=30000` and wait for completion) before predicting at that timestep. Alternatively, check available weights in `root-dir/saved` and use a valid `WEIGHTS_AT` value.
