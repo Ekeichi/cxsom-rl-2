@@ -1,8 +1,8 @@
 Implementation d'une organisation de cartes auto-organisatrices pour prédire la poussée à donner à la fusée en fonction de la vitesse et de l'erreur de position.
-
 J'essaie actuellement de comprendre comment les exemples cxsom fonctionnent pour adapter ma propre implémentation.
-
 Le code présent permet de definir l'architecture des cartes et les relations entre elles. 
+
+Important : veillez à bien activer le cxsom-venv en amont.
 
 ## Suivre la procédure suivante pour tester
 
