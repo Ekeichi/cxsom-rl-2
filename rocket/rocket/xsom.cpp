@@ -41,15 +41,13 @@ int main(int argc, char* argv[]) {
 
   auto archi = cxsom::builder::architecture();
 
+  auto error_input  = cxsom::builder::variable("in", cxsom::builder::name("xi_error"),  "Scalar", CACHE, TRACE, OPENED);
+  auto speed_input  = cxsom::builder::variable("in", cxsom::builder::name("xi_speed"),  "Scalar", CACHE, TRACE, OPENED);
+  auto thrust_input = cxsom::builder::variable("in", cxsom::builder::name("xi_thrust"), "Scalar", CACHE, TRACE, OPENED);
 
-
-  auto error  = cxsom::builder::variable("in", cxsom::builder::name("xi_error"),  "Scalar", CACHE, TRACE, OPENED);
-  auto speed  = cxsom::builder::variable("in", cxsom::builder::name("xi_speed"),  "Scalar", CACHE, TRACE, OPENED);
-  auto thrust = cxsom::builder::variable("in", cxsom::builder::name("xi_thrust"), "Scalar", CACHE, TRACE, OPENED);
-
-  error->definition();
-  speed->definition();
-  thrust->definition();
+  error_input-> definition();
+  speed_input-> definition();
+  thrust_input->definition();
 
   auto errorMap  = cxsom::builder::map::make_1D("error");
   auto speedMap  = cxsom::builder::map::make_1D("speed");
@@ -62,19 +60,19 @@ int main(int argc, char* argv[]) {
   map_settings.kept_opened       = OPENED;
   map_settings                   = {p_external, p_contextual, p_global};
 
-  std::vector<cxsom::builder::Map::Layer*> layers; // This will store all layers 
+  std::vector<cxsom::builder::Map::Layer*> layers;
   auto out_layer = std::back_inserter(layers); 
 
   // Liens entre les inputs et les cartes
-  *(out_layer++) = errorMap->external   (error,    fx::match_gaussian, p_match, fx::learn_triangle, p_learn_e);
-  *(out_layer++) = speedMap->external   (speed,    fx::match_gaussian, p_match, fx::learn_triangle, p_learn_e);
-  *(out_layer++) = thrustMap->external  (thrust,   fx::match_gaussian, p_match, fx::learn_triangle, p_learn_e);
+  *(out_layer++) = errorMap->external    (error_input, fx::match_gaussian, p_match, fx::learn_triangle, p_learn_e);
+  *(out_layer++) = speedMap->external    (speed_input, fx::match_gaussian, p_match, fx::learn_triangle, p_learn_e);
+  *(out_layer++) = thrustMap->external   (thrust_input,fx::match_gaussian, p_match, fx::learn_triangle, p_learn_e);
 
   // Liens entre les cartes
   *(out_layer++) = errorMap ->contextual (speedMap, fx::match_gaussian, p_match, fx::learn_triangle, p_learn_c);
-  *(out_layer++) = speedMap ->contextual (thrustMap,fx::match_gaussian, p_match,fx::learn_triangle,  p_learn_c);
+  *(out_layer++) = speedMap ->contextual (thrustMap,fx::match_gaussian, p_match, fx::learn_triangle, p_learn_c);
   *(out_layer++) = thrustMap->contextual (errorMap, fx::match_gaussian, p_match, fx::learn_triangle, p_learn_c);
-  *(out_layer++) = errorMap ->contextual (thrustMap,fx::match_gaussian, p_match,fx::learn_triangle,  p_learn_c);
+  *(out_layer++) = errorMap ->contextual (thrustMap,fx::match_gaussian, p_match, fx::learn_triangle, p_learn_c);
   *(out_layer++) = speedMap ->contextual (errorMap, fx::match_gaussian, p_match, fx::learn_triangle, p_learn_c);
   *(out_layer++) = thrustMap->contextual (speedMap, fx::match_gaussian, p_match, fx::learn_triangle, p_learn_c);
 

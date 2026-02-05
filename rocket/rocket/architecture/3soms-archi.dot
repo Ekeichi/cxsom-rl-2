@@ -1,0 +1,20 @@
+digraph All {
+
+      v0000 [label=<<font point-size="10"><b>xi_error</b></font><br/><font point-size="8">in</font>>, shape=box, shape=box, fillcolor="#aa88ff", style="filled"]
+      v0001 [label=<<font point-size="10"><b>xi_speed</b></font><br/><font point-size="8">in</font>>, shape=box, shape=box, fillcolor="#aa88ff", style="filled"]
+      v0002 [label=<<font point-size="10"><b>xi_thrust</b></font><br/><font point-size="8">in</font>>, shape=box, shape=box, fillcolor="#aa88ff", style="filled"]
+      m0003 [label=<<font point-size="10"><b>error</b></font>>, shape=ellipse, shape=ellipse, fillcolor="#ff88aa", style="filled"]
+      m0004 [label=<<font point-size="10"><b>speed</b></font>>, shape=ellipse, shape=ellipse, fillcolor="#ff88aa", style="filled"]
+      m0005 [label=<<font point-size="10"><b>thrust</b></font>>, shape=ellipse, shape=ellipse, fillcolor="#ff88aa", style="filled"]
+
+  v0000 -> m0003 [color="#5555aa", style=solid ]
+  v0001 -> m0004 [color="#5555aa", style=solid ]
+  v0002 -> m0005 [color="#5555aa", style=solid ]
+  m0003 -> m0004 [color="#000000", style=solid ]
+  m0003 -> m0005 [color="#000000", style=solid ]
+  m0004 -> m0003 [color="#000000", style=solid ]
+  m0004 -> m0005 [color="#000000", style=solid ]
+  m0005 -> m0003 [color="#000000", style=solid ]
+  m0005 -> m0004 [color="#000000", style=solid ]
+
+}

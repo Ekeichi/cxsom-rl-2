@@ -1,0 +1,431 @@
+digraph All {
+
+  subgraph cluster_t3 {
+    label = <<font point-size="30">timeline <b>in</b></font>>
+    fillcolor = "#fff0ff"
+    style = "filled"
+    penwidth = 0
+
+    subgraph cluster_p0 {
+      label = ""
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n21 [label=<<b>(in) /xi_error</b><br/><font point-size="8">Scalar</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n36 [label=<<b>(in) /xi_speed</b><br/><font point-size="8">Scalar</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n51 [label=<<b>(in) /xi_thrust</b><br/><font point-size="8">Scalar</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+    }
+  }
+
+  subgraph cluster_t0 {
+    label = <<font point-size="30">timeline <b>out</b></font>>
+    fillcolor = "#fff0ff"
+    style = "filled"
+    penwidth = 0
+
+    subgraph cluster_p1 {
+      label = "/error"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n0 [label=<<b>(out) /error/BMU @0</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n1 [label=<<b>(out) /error/BMU</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u0 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u1 [label=<<b>copy</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+
+    subgraph cluster_p2 {
+      label = "/speed"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n3 [label=<<b>(out) /speed/BMU @0</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n4 [label=<<b>(out) /speed/BMU</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u2 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u3 [label=<<b>copy</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+
+    subgraph cluster_p3 {
+      label = "/thrust"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n6 [label=<<b>(out) /thrust/BMU @0</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n7 [label=<<b>(out) /thrust/BMU</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u4 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u5 [label=<<b>copy</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+  }
+
+  subgraph cluster_t1 {
+    label = <<font point-size="30">timeline <b>rlx</b></font>>
+    fillcolor = "#fff0ff"
+    style = "filled"
+    penwidth = 0
+
+    subgraph cluster_p4 {
+      label = "/error"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n9 [label=<<b>(rlx) /error/A @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n10 [label=<<b>(rlx) /error/A</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n13 [label=<<b>(rlx) /error/Ac @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n12 [label=<<b>(rlx) /error/Ac</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n16 [label=<<b>(rlx) /error/Ac-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n14 [label=<<b>(rlx) /error/Ac-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n18 [label=<<b>(rlx) /error/Ac-1 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n15 [label=<<b>(rlx) /error/Ac-1</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n20 [label=<<b>(rlx) /error/Ae-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n11 [label=<<b>(rlx) /error/Ae-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n23 [label=<<b>(rlx) /error/BMU @0</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n2 [label=<<b>(rlx) /error/BMU</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u6 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u7 [label=<<b>merge</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u8 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u9 [label=<<b>average</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u10 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u11 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u12 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u13 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u14 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u15 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u16 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u17 [label=<<b>toward-conv-argmax</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+
+    subgraph cluster_p5 {
+      label = "/speed"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n24 [label=<<b>(rlx) /speed/A @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n25 [label=<<b>(rlx) /speed/A</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n28 [label=<<b>(rlx) /speed/Ac @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n27 [label=<<b>(rlx) /speed/Ac</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n31 [label=<<b>(rlx) /speed/Ac-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n29 [label=<<b>(rlx) /speed/Ac-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n33 [label=<<b>(rlx) /speed/Ac-1 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n30 [label=<<b>(rlx) /speed/Ac-1</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n35 [label=<<b>(rlx) /speed/Ae-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n26 [label=<<b>(rlx) /speed/Ae-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n38 [label=<<b>(rlx) /speed/BMU @0</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n5 [label=<<b>(rlx) /speed/BMU</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u18 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u19 [label=<<b>merge</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u20 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u21 [label=<<b>average</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u22 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u23 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u24 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u25 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u26 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u27 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u28 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u29 [label=<<b>toward-conv-argmax</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+
+    subgraph cluster_p6 {
+      label = "/thrust"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n39 [label=<<b>(rlx) /thrust/A @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n40 [label=<<b>(rlx) /thrust/A</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n43 [label=<<b>(rlx) /thrust/Ac @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n42 [label=<<b>(rlx) /thrust/Ac</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n46 [label=<<b>(rlx) /thrust/Ac-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n44 [label=<<b>(rlx) /thrust/Ac-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n48 [label=<<b>(rlx) /thrust/Ac-1 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n45 [label=<<b>(rlx) /thrust/Ac-1</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n50 [label=<<b>(rlx) /thrust/Ae-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n41 [label=<<b>(rlx) /thrust/Ae-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n53 [label=<<b>(rlx) /thrust/BMU @0</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n8 [label=<<b>(rlx) /thrust/BMU</b><br/><font point-size="8">Pos1D</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u30 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u31 [label=<<b>merge</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u32 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u33 [label=<<b>average</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u34 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u35 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u36 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u37 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u38 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u39 [label=<<b>match-gaussian</b><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">sigma = 0.2</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u40 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u41 [label=<<b>toward-conv-argmax</b><br/><font point-size="10">beta = 0.5</font><br/><font point-size="10">deadline = 100</font><br/><font point-size="10">delta = 0.01</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">random-bmu = 1</font><br/><font point-size="10">sigma = 0.01</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+  }
+
+  subgraph cluster_t4 {
+    label = <<font point-size="30">timeline <b>save</b></font>>
+    fillcolor = "#fff0ff"
+    style = "filled"
+    penwidth = 0
+
+    subgraph cluster_p7 {
+      label = "/error"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n54 [label=<<b>(save) /error/Wc-0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n56 [label=<<b>(save) /error/Wc-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n58 [label=<<b>(save) /error/We-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u42 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u43 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u44 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+
+    subgraph cluster_p8 {
+      label = "/speed"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n60 [label=<<b>(save) /speed/Wc-0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n62 [label=<<b>(save) /speed/Wc-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n64 [label=<<b>(save) /speed/We-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u45 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u46 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u47 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+
+    subgraph cluster_p9 {
+      label = "/thrust"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n66 [label=<<b>(save) /thrust/Wc-0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n68 [label=<<b>(save) /thrust/Wc-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n70 [label=<<b>(save) /thrust/We-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u48 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u49 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u50 [label=<<b>copy</b><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+  }
+
+  subgraph cluster_t2 {
+    label = <<font point-size="30">timeline <b>wgt</b></font>>
+    fillcolor = "#fff0ff"
+    style = "filled"
+    penwidth = 0
+
+    subgraph cluster_p10 {
+      label = "/error"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n72 [label=<<b>(wgt) /error/Wc-0 @0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n17 [label=<<b>(wgt) /error/Wc-0 @now-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n73 [label=<<b>(wgt) /error/Wc-0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n55 [label=<<b>(wgt) /error/Wc-0 @now*10</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n74 [label=<<b>(wgt) /error/Wc-1 @0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n19 [label=<<b>(wgt) /error/Wc-1 @now-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n75 [label=<<b>(wgt) /error/Wc-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n57 [label=<<b>(wgt) /error/Wc-1 @now*10</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n76 [label=<<b>(wgt) /error/We-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n22 [label=<<b>(wgt) /error/We-0 @now-1</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n77 [label=<<b>(wgt) /error/We-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n59 [label=<<b>(wgt) /error/We-0 @now*10</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u51 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u52 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.075</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u53 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u54 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.075</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u55 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u56 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.25</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+
+    subgraph cluster_p11 {
+      label = "/speed"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n78 [label=<<b>(wgt) /speed/Wc-0 @0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n32 [label=<<b>(wgt) /speed/Wc-0 @now-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n79 [label=<<b>(wgt) /speed/Wc-0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n61 [label=<<b>(wgt) /speed/Wc-0 @now*10</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n80 [label=<<b>(wgt) /speed/Wc-1 @0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n34 [label=<<b>(wgt) /speed/Wc-1 @now-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n81 [label=<<b>(wgt) /speed/Wc-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n63 [label=<<b>(wgt) /speed/Wc-1 @now*10</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n82 [label=<<b>(wgt) /speed/We-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n37 [label=<<b>(wgt) /speed/We-0 @now-1</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n83 [label=<<b>(wgt) /speed/We-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n65 [label=<<b>(wgt) /speed/We-0 @now*10</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u57 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u58 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.075</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u59 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u60 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.075</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u61 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u62 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.25</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+
+    subgraph cluster_p12 {
+      label = "/thrust"
+      fillcolor = "#ffccff"
+      style = "filled"
+      penwidth = 0
+      n84 [label=<<b>(wgt) /thrust/Wc-0 @0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n47 [label=<<b>(wgt) /thrust/Wc-0 @now-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n85 [label=<<b>(wgt) /thrust/Wc-0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n67 [label=<<b>(wgt) /thrust/Wc-0 @now*10</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n86 [label=<<b>(wgt) /thrust/Wc-1 @0</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n49 [label=<<b>(wgt) /thrust/Wc-1 @now-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n87 [label=<<b>(wgt) /thrust/Wc-1</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n69 [label=<<b>(wgt) /thrust/Wc-1 @now*10</b><br/><font point-size="8">Map1D&lt;Pos1D&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n88 [label=<<b>(wgt) /thrust/We-0 @0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#8888ff", style="filled"]
+      n52 [label=<<b>(wgt) /thrust/We-0 @now-1</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccdd", style="filled"]
+      n89 [label=<<b>(wgt) /thrust/We-0</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      n71 [label=<<b>(wgt) /thrust/We-0 @now*10</b><br/><font point-size="8">Map1D&lt;Scalar&gt;=1500</font>>, shape=box, fillcolor="#ccccff", style="filled"]
+      u63 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u64 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.075</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u65 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u66 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.075</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u67 [label=<<b>random</b>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+      u68 [label=<<b>learn-triangle</b><br/><font point-size="10">alpha = 0.05</font><br/><font point-size="10">epsilon = 0</font><br/><font point-size="10">r = 0.25</font><br/><font point-size="10">walltime = -1</font>>, shape=ellipse, fillcolor="#ffffaa", style="filled"]
+    }
+  }
+  u0 -> n0
+  u1 -> n1
+  n2 -> u1
+  u2 -> n3
+  u3 -> n4
+  n5 -> u3
+  u4 -> n6
+  u5 -> n7
+  n8 -> u5
+  u6 -> n9
+  u7 -> n10
+  n11 -> u7
+  n12 -> u7
+  u8 -> n13
+  u9 -> n12
+  n14 -> u9
+  n15 -> u9
+  u10 -> n16
+  u11 -> n14
+  n5 -> u11
+  n17 -> u11
+  u12 -> n18
+  u13 -> n15
+  n8 -> u13
+  n19 -> u13
+  u14 -> n20
+  u15 -> n11
+  n21 -> u15
+  n22 -> u15
+  u16 -> n23
+  u17 -> n2
+  n10 -> u17
+  n2 -> u17
+  u18 -> n24
+  u19 -> n25
+  n26 -> u19
+  n27 -> u19
+  u20 -> n28
+  u21 -> n27
+  n29 -> u21
+  n30 -> u21
+  u22 -> n31
+  u23 -> n29
+  n8 -> u23
+  n32 -> u23
+  u24 -> n33
+  u25 -> n30
+  n2 -> u25
+  n34 -> u25
+  u26 -> n35
+  u27 -> n26
+  n36 -> u27
+  n37 -> u27
+  u28 -> n38
+  u29 -> n5
+  n25 -> u29
+  n5 -> u29
+  u30 -> n39
+  u31 -> n40
+  n41 -> u31
+  n42 -> u31
+  u32 -> n43
+  u33 -> n42
+  n44 -> u33
+  n45 -> u33
+  u34 -> n46
+  u35 -> n44
+  n2 -> u35
+  n47 -> u35
+  u36 -> n48
+  u37 -> n45
+  n5 -> u37
+  n49 -> u37
+  u38 -> n50
+  u39 -> n41
+  n51 -> u39
+  n52 -> u39
+  u40 -> n53
+  u41 -> n8
+  n40 -> u41
+  n8 -> u41
+  u42 -> n54
+  n55 -> u42
+  u43 -> n56
+  n57 -> u43
+  u44 -> n58
+  n59 -> u44
+  u45 -> n60
+  n61 -> u45
+  u46 -> n62
+  n63 -> u46
+  u47 -> n64
+  n65 -> u47
+  u48 -> n66
+  n67 -> u48
+  u49 -> n68
+  n69 -> u49
+  u50 -> n70
+  n71 -> u50
+  u51 -> n72
+  u52 -> n73
+  n5 -> u52
+  n17 -> u52
+  n2 -> u52
+  u53 -> n74
+  u54 -> n75
+  n8 -> u54
+  n19 -> u54
+  n2 -> u54
+  u55 -> n76
+  u56 -> n77
+  n21 -> u56
+  n22 -> u56
+  n2 -> u56
+  u57 -> n78
+  u58 -> n79
+  n8 -> u58
+  n32 -> u58
+  n5 -> u58
+  u59 -> n80
+  u60 -> n81
+  n2 -> u60
+  n34 -> u60
+  n5 -> u60
+  u61 -> n82
+  u62 -> n83
+  n36 -> u62
+  n37 -> u62
+  n5 -> u62
+  u63 -> n84
+  u64 -> n85
+  n2 -> u64
+  n47 -> u64
+  n8 -> u64
+  u65 -> n86
+  u66 -> n87
+  n5 -> u66
+  n49 -> u66
+  n8 -> u66
+  u67 -> n88
+  u68 -> n89
+  n51 -> u68
+  n52 -> u68
+  n8 -> u68
+}

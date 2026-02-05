@@ -22,3 +22,14 @@ make cxsom-scan-vars
 ```
 make send-rules
 ```
+
+### Envoyer les input avec les données de la fusée dans le rootdir (elles s'affichent dans le scan-vars)
+```
+make send-data
+```
+
+### Lancer l'entrainement
+```
+make feed
+```
+Cependant, le fichier feed.py ne permet a priori pas de lancer l'entrainement. Il doit manquer un élément.
