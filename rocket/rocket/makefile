@@ -18,6 +18,9 @@ feed:  feed.py
 	@python feed.py
 
 
+
+
+# push sur gitlab
 push-gitlab:
 	@git add .
 	@git commit -m "update"
