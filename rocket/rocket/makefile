@@ -16,3 +16,9 @@ send-data:  send.py
 .PHONY: feed
 feed:  feed.py
 	@python feed.py
+
+
+push-gitlab:
+	@git add .
+	@git commit -m "update"
+	@git push

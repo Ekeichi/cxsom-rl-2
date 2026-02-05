@@ -12,6 +12,12 @@ mkdir root-dir
 make cxsom-set-config ROOT_DIR=./root-dir VENV=../cxsom-venv HOSTNAME=localhost PORT=10000 SKEDNET_PORT=20000 NB_THREADS=4
 ```
 
+### Permet de reset le serveur et le root-dir
+```
+make cxsom-kill-processor
+make cxsom-clear-rootdir
+```
+
 ### Permet de lancer le processeur et scanner le root-dir (pour le moment vide)
 ```
 make cxsom-launch-processor
