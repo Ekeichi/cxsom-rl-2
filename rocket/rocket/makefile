@@ -1,24 +1,24 @@
 # peut être nécessaire d'adapter le chemin en fonction de l'installation
 include /usr/share/cxsom/cxsom-makefile
 
-xsom: xsom.cpp
-	@g++ -o xsom `pkg-config --cflags cxsom-builder` xsom.cpp `pkg-config --libs cxsom-builder`
+xsom-train: xsom-train.cpp
+	@g++ -o xsom-train `pkg-config --cflags cxsom-builder` xsom-train.cpp `pkg-config --libs cxsom-builder`
+
+xsom-predict: xsom-predict.cpp
+	@g++ -o xsom-predict `pkg-config --cflags cxsom-builder` xsom-predict.cpp `pkg-config --libs cxsom-builder`
 
 
 .PHONY: send-rules
-send-rules: xsom
-	@./xsom send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
+send-rules: xsom-train
+	@./xsom-train send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
 
-.PHONY: send
+.PHONY: send-data
 send-data:  send.py
 	@python send.py
 
 .PHONY: feed
 feed:  feed.py
 	@python feed.py
-
-
-
 
 # push sur gitlab
 push-gitlab:
