@@ -10,6 +10,8 @@ int main(int argc, char *argv[]) {
   context c(argc, argv);
 
   int saved_weight_at = 2600;
+
+  // à quoi ça sert ?
   std::string wtype_ext = "Map1D<Scalar>";
   std::string wtype_ctx = "Map1D<Pos1D>";
   Params params;

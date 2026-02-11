@@ -24,6 +24,11 @@ feed:  feed.py
 send-predict-rules: xsom-predict
 	@./xsom-predict send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
 
+.PHONY: send-predict-data
+send-predict-data:  send-predict.py
+	@python send-predict.py
+	@make --quiet cxsom-ping-processor
+
 # push sur gitlab
 push-gitlab:
 	@git add .

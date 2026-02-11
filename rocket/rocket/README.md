@@ -32,7 +32,7 @@ make send-train-rules
 
 ### Envoyer les input avec les données de la fusée dans le rootdir (elles s'affichent dans le scan-vars)
 ```
-make send-data
+make send-data train
 ```
 
 ### Lancer l'entrainement
@@ -65,3 +65,8 @@ error char '=' expected
 Exception caught : server processing failed --> St13runtime_error
 ```
 Mais les variables s'affichent dans le scan-vars.
+
+### Envoyer les données de prediction
+```
+make send-predict-data
+```
