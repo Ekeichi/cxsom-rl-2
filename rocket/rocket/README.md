@@ -73,3 +73,5 @@ make send-predict-data
 ```
 make show-predict
 ```
+![Prédictions architecture](architecture/predictions.png)
+
