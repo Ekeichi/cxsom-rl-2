@@ -1,6 +1,8 @@
 # peut être nécessaire d'adapter le chemin en fonction de l'installation
 include /usr/share/cxsom/cxsom-makefile
 
+SAMPLES ?=
+
 xsom-train: xsom-train.cpp
 	@g++ -o xsom-train `pkg-config --cflags cxsom-builder` xsom-train.cpp `pkg-config --libs cxsom-builder`
 
@@ -15,6 +17,14 @@ send-train-rules: xsom-train
 .PHONY: send-data
 send-data:  send.py
 	@python send.py
+
+.PHONY: show-3d
+show-3d: show-rocket-3D.py
+	@if [ -z "$(SAMPLES)" ]; then \
+		python show-rocket-3D.py root-dir ; \
+	else \
+		python show-rocket-3D.py root-dir $(SAMPLES) ; \
+	fi
 
 .PHONY: feed
 feed:  feed.py

@@ -34,6 +34,10 @@ make send-train-rules
 ```
 make send-data
 ```
+### Afficher les entrées présentes dans le rootdir
+```
+make show-3d
+```
 
 ### Lancer l'entrainement
 ```
