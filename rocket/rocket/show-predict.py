@@ -30,11 +30,18 @@ E, S, real_T, pred_T = E[:N], S[:N], real_T[:N], pred_T[:N]
 
 if N > max_points:
     indices = np.random.choice(N, size=max_points, replace=False)
-    E, S, T = E[    indices], S[indices], T[indices]
+    E = E[indices]
+    S = S[indices]
+    real_T = real_T[indices]
+    pred_T = pred_T[indices]
+
+# Calcul de la loss (MSE)
+loss = np.mean((real_T - pred_T)**2)
+
 
 class Rocket3DView(cx.tkviewer.At):
-    def __init__(self, master, E, S, real_T, pred_T, figsize=(10, 10), dpi=100):
-        super().__init__(master, "Rocket inputs (error, speed, real thrust, predicted thrust)", figsize, dpi)
+    def __init__(self, master, E, S, real_T, pred_T, loss, figsize=(10, 10), dpi=100):
+        super().__init__(master, f"Rocket inputs (MSE Loss: {loss:.6f})", figsize, dpi)
         self.E = E
         self.S = S
         self.real_T = real_T
@@ -65,10 +72,11 @@ class Rocket3DView(cx.tkviewer.At):
 root = tk.Tk()
 root.protocol("WM_DELETE_WINDOW", lambda: sys.exit(0))
 
-viewer = Rocket3DView(root, E, S, real_T, pred_T)
+viewer = Rocket3DView(root, E, S, real_T, pred_T, loss)
 viewer.widget().pack(fill=tk.BOTH, side=tk.TOP)
 
 # We force an initial draw manually by calling the method once.
 root.after(100, lambda: viewer.on_draw_at(0))
 
 tk.mainloop()
+
