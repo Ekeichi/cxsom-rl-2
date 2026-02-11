@@ -10,7 +10,8 @@ int main(int argc, char *argv[]) {
   context c(argc, argv);
 
   int saved_weight_at = 2600;
-  std::string wtype = "type";
+  std::string wtype_ext = "Map1D<Scalar>";
+  std::string wtype_ctx = "Map1D<Pos1D>";
   Params params;
 
   auto archi = cxsom::builder::architecture();
@@ -29,29 +30,29 @@ int main(int argc, char *argv[]) {
 
   auto errorWc0 = cxsom::builder::variable(
       "save", cxsom::builder::name("error") / cxsom::builder::name("Wc-0"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ctx, CACHE, TRACE, OPENED);
   auto errorWc1 = cxsom::builder::variable(
       "save", cxsom::builder::name("error") / cxsom::builder::name("Wc-1"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ctx, CACHE, TRACE, OPENED);
   auto speedWc0 = cxsom::builder::variable(
       "save", cxsom::builder::name("speed") / cxsom::builder::name("Wc-0"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ctx, CACHE, TRACE, OPENED);
   auto speedWc1 = cxsom::builder::variable(
       "save", cxsom::builder::name("speed") / cxsom::builder::name("Wc-1"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ctx, CACHE, TRACE, OPENED);
   auto thrustWc0 = cxsom::builder::variable(
       "save", cxsom::builder::name("thrust") / cxsom::builder::name("Wc-0"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ctx, CACHE, TRACE, OPENED);
   auto thrustWc1 = cxsom::builder::variable(
       "save", cxsom::builder::name("thrust") / cxsom::builder::name("Wc-1"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ctx, CACHE, TRACE, OPENED);
   errorMap->contextual(speedMap, fx::match_gaussian, params.p_match, errorWc0,
                        saved_weight_at);
   errorMap->contextual(thrustMap, fx::match_gaussian, params.p_match, errorWc1,
                        saved_weight_at);
-  speedMap->contextual(errorMap, fx::match_gaussian, params.p_match, speedWc0,
+  speedMap->contextual(errorMap, fx::match_gaussian, params.p_match, speedWc1,
                        saved_weight_at);
-  speedMap->contextual(thrustMap, fx::match_gaussian, params.p_match, speedWc1,
+  speedMap->contextual(thrustMap, fx::match_gaussian, params.p_match, speedWc0,
                        saved_weight_at);
   thrustMap->contextual(errorMap, fx::match_gaussian, params.p_match, thrustWc0,
                         saved_weight_at);
@@ -75,13 +76,13 @@ int main(int argc, char *argv[]) {
 
   auto errorWe0 = cxsom::builder::variable(
       "save", cxsom::builder::name("error") / cxsom::builder::name("We0"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ext, CACHE, TRACE, OPENED);
   auto speedWe0 = cxsom::builder::variable(
       "save", cxsom::builder::name("speed") / cxsom::builder::name("We0"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ext, CACHE, TRACE, OPENED);
   auto thrustWe0 = cxsom::builder::variable(
       "save", cxsom::builder::name("thrust") / cxsom::builder::name("We0"),
-      wtype, CACHE, TRACE, OPENED);
+      wtype_ext, CACHE, TRACE, OPENED);
 
   errorMap->external(error, fx::match_gaussian, params.p_match, errorWe0,
                      saved_weight_at);

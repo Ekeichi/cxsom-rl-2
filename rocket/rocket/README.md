@@ -23,11 +23,11 @@ make cxsom-clear-rootdir
 make cxsom-launch-processor
 make cxsom-scan-vars
 ```
-## Entrainement
+# Entrainement
 
-### Envoyer les regles au processeur (le root-dir se remplit)
+### Envoyer les regles d'entrainement au processeur (le root-dir se remplit)
 ```
-make send-rules
+make send-train-rules
 ```
 
 ### Envoyer les input avec les données de la fusée dans le rootdir (elles s'affichent dans le scan-vars)
@@ -39,9 +39,9 @@ make send-data
 ```
 make feed
 ```
-Cependant, le fichier feed.py ne permet a priori pas de lancer l'entrainement. Il doit manquer un élément.
+Là, l'entrainement se lance.
 
-# Prédictions
+# Prédiction
 L'architecture est légérement modifiée lorsqu'on veut réaliser une prediction. En effet, la carte qui gère le thrust ne reçoit plus de valeur exterieur quand on souhaite prédire. 
 Pour ce faire, nous avons décidé de creer un deuxième fichier cpp, nommé xsom-predict.cpp, qui permet de définir la nouvelle architecture de prédiction. 
 
@@ -55,3 +55,13 @@ make xsom-predict
 make cxsom-clear-processor
 ```
 
+### Envoyer les règles de prediction au processeur
+```
+make send-predict-rules
+```
+j'ai une erreur : 
+```
+error char '=' expected
+Exception caught : server processing failed --> St13runtime_error
+```
+Mais les variables s'affichent dans le scan-vars.

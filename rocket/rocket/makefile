@@ -8,8 +8,8 @@ xsom-predict: xsom-predict.cpp
 	@g++ -o xsom-predict `pkg-config --cflags cxsom-builder` xsom-predict.cpp `pkg-config --libs cxsom-builder`
 
 
-.PHONY: send-rules
-send-rules: xsom-train
+.PHONY: send-train-rules
+send-train-rules: xsom-train
 	@./xsom-train send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
 
 .PHONY: send-data
@@ -19,6 +19,10 @@ send-data:  send.py
 .PHONY: feed
 feed:  feed.py
 	@python feed.py
+
+.PHONY: send-predict-rules
+send-predict-rules: xsom-predict
+	@./xsom-predict send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
 
 # push sur gitlab
 push-gitlab:
