@@ -20,9 +20,9 @@ def read_full_scalar(var_path: str) -> np.ndarray:
     )
 
 # Paths (train inputs used to visualize data in 3D space)
-err_path = cx.variable.path_from(root_dir, "in", "xi_error")
-spd_path = cx.variable.path_from(root_dir, "in", "xi_speed")
-thr_path = cx.variable.path_from(root_dir, "in", "xi_thrust")
+err_path = cx.variable.path_from(root_dir, "in", "error")
+spd_path = cx.variable.path_from(root_dir, "in", "speed")
+thr_path = cx.variable.path_from(root_dir, "in", "thrust")
 
 # Load full history of each variable
 E = read_full_scalar(err_path)
@@ -39,7 +39,7 @@ if N > max_points:
 
 class Rocket3DView(cx.tkviewer.At):
     def __init__(self, master, E, S, T, figsize=(10, 10), dpi=100):
-        super().__init__(master, "Rocket inputs (xi_error, xi_speed, xi_thrust)", figsize, dpi)
+        super().__init__(master, "Rocket inputs (error, speed, thrust)", figsize, dpi)
         self.E = E
         self.S = S
         self.T = T
@@ -48,9 +48,9 @@ class Rocket3DView(cx.tkviewer.At):
         try:
             self.fig.clear()
             ax = self.fig.add_subplot(projection="3d")
-            ax.set_xlabel("xi_error")
-            ax.set_ylabel("xi_speed")
-            ax.set_zlabel("xi_thrust")
+            ax.set_xlabel("error")
+            ax.set_ylabel("speed")
+            ax.set_zlabel("thrust")
             ax.scatter(self.E, self.S, self.T, s=6)
             
             # IMPORTANT: force canvas draw

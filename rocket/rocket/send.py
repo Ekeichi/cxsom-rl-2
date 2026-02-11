@@ -16,9 +16,9 @@ def normalize_minmax(v):
         return np.zeros_like(v)
     return (v - v_min) / (v_max - v_min)
 
-error_var_path  = cx.variable.path_from(root_dir, 'in', 'xi_error')
-speed_var_path  = cx.variable.path_from(root_dir, 'in', 'xi_speed')
-thrust_var_path = cx.variable.path_from(root_dir, 'in', 'xi_thrust')
+error_var_path  = cx.variable.path_from(root_dir, 'in', 'error')
+speed_var_path  = cx.variable.path_from(root_dir, 'in', 'speed')
+thrust_var_path = cx.variable.path_from(root_dir, 'in', 'thrust')
 
 with cx.variable.Realize(error_var_path) as error:
     with cx.variable.Realize(speed_var_path) as speed:

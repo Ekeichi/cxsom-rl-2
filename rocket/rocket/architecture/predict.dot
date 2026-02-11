@@ -3,8 +3,8 @@ digraph All {
       m0000 [label=<<font point-size="10"><b>error</b></font>>, shape=ellipse, shape=ellipse, fillcolor="#ff88aa", style="filled"]
       m0001 [label=<<font point-size="10"><b>speed</b></font>>, shape=ellipse, shape=ellipse, fillcolor="#ff88aa", style="filled"]
       m0002 [label=<<font point-size="10"><b>thrust</b></font>>, shape=ellipse, shape=ellipse, fillcolor="#ff88aa", style="filled"]
-      v0003 [label=<<font point-size="10"><b>error</b></font><br/><font point-size="8">predict</font>>, shape=box, shape=box, fillcolor="#aa88ff", style="filled"]
-      v0004 [label=<<font point-size="10"><b>speed</b></font><br/><font point-size="8">predict</font>>, shape=box, shape=box, fillcolor="#aa88ff", style="filled"]
+      v0003 [label=<<font point-size="10"><b>error</b></font><br/><font point-size="8">in</font>>, shape=box, shape=box, fillcolor="#aa88ff", style="filled"]
+      v0004 [label=<<font point-size="10"><b>speed</b></font><br/><font point-size="8">in</font>>, shape=box, shape=box, fillcolor="#aa88ff", style="filled"]
 
   m0000 -> m0001 [color="#aaaaaa", style=dashed]
   m0000 -> m0002 [color="#aaaaaa", style=dashed]

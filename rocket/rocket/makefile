@@ -40,6 +40,11 @@ send-predict-data:  send-predict.py
 	@python send-predict.py
 	@make --quiet cxsom-ping-processor
 
+
+.PHONY: clear-predict
+clear-predict: 
+	@rm -rf `cat .cxsom-rootdir-config`/predict `cat .cxsom-rootdir-config`/rlx `cat .cxsom-rootdir-config`/out
+
 # push sur gitlab
 push-gitlab:
 	@git add .

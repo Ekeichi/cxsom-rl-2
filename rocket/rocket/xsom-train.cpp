@@ -13,11 +13,11 @@ int main(int argc, char *argv[]) {
   Params params;
 
   auto error_input = cxsom::builder::variable(
-      "in", cxsom::builder::name("xi_error"), "Scalar", CACHE, TRACE, OPENED);
+      "in", cxsom::builder::name("error"), "Scalar", CACHE, TRACE, OPENED);
   auto speed_input = cxsom::builder::variable(
-      "in", cxsom::builder::name("xi_speed"), "Scalar", CACHE, TRACE, OPENED);
+      "in", cxsom::builder::name("speed"), "Scalar", CACHE, TRACE, OPENED);
   auto thrust_input = cxsom::builder::variable(
-      "in", cxsom::builder::name("xi_thrust"), "Scalar", CACHE, TRACE, OPENED);
+      "in", cxsom::builder::name("thrust"), "Scalar", CACHE, TRACE, OPENED);
 
   error_input->definition();
   speed_input->definition();

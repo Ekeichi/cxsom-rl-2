@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
 
   if (c.user_argv.size() != 1) {
     std::cout << "error, il faut passer un arg" << std::endl;
+    c.notify_user_argv_error();
     return 0;
   }
 
@@ -70,10 +71,10 @@ int main(int argc, char *argv[]) {
                         saved_weight_at);
 
   // declaration des inputs et de la sortie
-  auto error = cxsom::builder::variable(
-      "predict", cxsom::builder::name("error"), "Scalar", CACHE, TRACE, OPENED);
-  auto speed = cxsom::builder::variable(
-      "predict", cxsom::builder::name("speed"), "Scalar", CACHE, TRACE, OPENED);
+  auto error = cxsom::builder::variable("in", cxsom::builder::name("error"),
+                                        "Scalar", CACHE, TRACE, OPENED);
+  auto speed = cxsom::builder::variable("in", cxsom::builder::name("speed"),
+                                        "Scalar", CACHE, TRACE, OPENED);
   auto thrust =
       cxsom::builder::variable("predict", cxsom::builder::name("thrust"),
                                "Scalar", CACHE, TRACE, OPENED);
