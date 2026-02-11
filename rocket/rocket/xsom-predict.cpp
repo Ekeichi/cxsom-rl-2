@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
 
   archi->realize();
   {
-    std::ofstream dot_file("predict.dot");
+    std::ofstream dot_file("architecture/predict.dot");
     dot_file << archi->write_dot;
   }
 

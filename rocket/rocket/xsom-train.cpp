@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
         kwd::use("walltime", WALLTIME);
   }
 
-  std::ofstream dot_file("architecture/3soms-archi.dot");
+  std::ofstream dot_file("architecture/train.dot");
   dot_file << archi->write_dot;
 
   return 0;
