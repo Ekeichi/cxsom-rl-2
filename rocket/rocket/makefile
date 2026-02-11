@@ -2,6 +2,7 @@
 include /usr/share/cxsom/cxsom-makefile
 
 SAMPLES ?=
+SAVEPOINT ?=260
 
 xsom-train: xsom-train.cpp
 	@g++ -o xsom-train `pkg-config --cflags cxsom-builder` xsom-train.cpp `pkg-config --libs cxsom-builder`
@@ -30,9 +31,9 @@ show-3d: show-rocket-3D.py
 feed:  feed.py
 	@python feed.py
 
-.PHONY: send-predict-rules
+.PHONY: send-predict-rules 
 send-predict-rules: xsom-predict
-	@./xsom-predict send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
+	@./xsom-predict send `cat .cxsom-hostname-config` `cat .cxsom-port-config` -- $(SAVEPOINT)
 
 .PHONY: send-predict-data
 send-predict-data:  send-predict.py

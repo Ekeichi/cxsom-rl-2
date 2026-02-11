@@ -10,11 +10,18 @@
 int main(int argc, char *argv[]) {
   context c(argc, argv);
 
-  int saved_weight_at = 2600;
+  if (c.user_argv.size() != 1) {
+    std::cout << "error, il faut passer un arg" << std::endl;
+    return 0;
+  }
+
+  auto saved_weight_at = std::stoul(c.user_argv[0]);
 
   // à quoi ça sert ?
-  std::string wtype_ext = std::string("Map1D<Scalar>=") + std::to_string(1500);
-  std::string wtype_ctx = std::string("Map1D<Pos1D>=") + std::to_string(1500);
+  std::string wtype_ext =
+      std::string("Map1D<Scalar>=") + std::to_string(MAP_SIZE);
+  std::string wtype_ctx =
+      std::string("Map1D<Pos1D>=") + std::to_string(MAP_SIZE);
   Params params;
 
   auto archi = cxsom::builder::architecture();
@@ -63,15 +70,13 @@ int main(int argc, char *argv[]) {
                         saved_weight_at);
 
   // declaration des inputs et de la sortie
-  auto error =
-      cxsom::builder::variable("in", cxsom::builder::name("predict_error"),
+  auto error = cxsom::builder::variable(
+      "predict", cxsom::builder::name("error"), "Scalar", CACHE, TRACE, OPENED);
+  auto speed = cxsom::builder::variable(
+      "predict", cxsom::builder::name("speed"), "Scalar", CACHE, TRACE, OPENED);
+  auto thrust =
+      cxsom::builder::variable("predict", cxsom::builder::name("thrust"),
                                "Scalar", CACHE, TRACE, OPENED);
-  auto speed =
-      cxsom::builder::variable("in", cxsom::builder::name("predict_speed"),
-                               "Scalar", CACHE, TRACE, OPENED);
-  auto thrust = cxsom::builder::variable("predict-out",
-                                         cxsom::builder::name("predict_thrust"),
-                                         "Scalar", CACHE, TRACE, OPENED);
 
   error->definition();
   speed->definition();
