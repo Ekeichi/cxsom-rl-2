@@ -32,7 +32,7 @@ make send-train-rules
 
 ### Envoyer les input avec les données de la fusée dans le rootdir (elles s'affichent dans le scan-vars)
 ```
-make send-data train
+make send-data
 ```
 
 ### Lancer l'entrainement
@@ -59,12 +59,7 @@ make cxsom-clear-processor
 ```
 make send-predict-rules
 ```
-j'ai une erreur : 
-```
-error char '=' expected
-Exception caught : server processing failed --> St13runtime_error
-```
-Mais les variables s'affichent dans le scan-vars.
+voir code, car je ne comprends pas ce qu'est wtype.
 
 ### Envoyer les données de prediction
 ```

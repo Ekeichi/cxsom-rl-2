@@ -1,4 +1,5 @@
 #include "xsom.hpp"
+#include <string>
 
 // // ############################
 // // #                          #
@@ -12,8 +13,8 @@ int main(int argc, char *argv[]) {
   int saved_weight_at = 2600;
 
   // à quoi ça sert ?
-  std::string wtype_ext = "Map1D<Scalar>";
-  std::string wtype_ctx = "Map1D<Pos1D>";
+  std::string wtype_ext = std::string("Map1D<Scalar>=") + std::to_string(1500);
+  std::string wtype_ctx = std::string("Map1D<Pos1D>=") + std::to_string(1500);
   Params params;
 
   auto archi = cxsom::builder::architecture();
@@ -77,13 +78,13 @@ int main(int argc, char *argv[]) {
   thrust->definition();
 
   auto errorWe0 = cxsom::builder::variable(
-      "save", cxsom::builder::name("error") / cxsom::builder::name("We0"),
+      "save", cxsom::builder::name("error") / cxsom::builder::name("We-0"),
       wtype_ext, CACHE, TRACE, OPENED);
   auto speedWe0 = cxsom::builder::variable(
-      "save", cxsom::builder::name("speed") / cxsom::builder::name("We0"),
+      "save", cxsom::builder::name("speed") / cxsom::builder::name("We-0"),
       wtype_ext, CACHE, TRACE, OPENED);
   auto thrustWe0 = cxsom::builder::variable(
-      "save", cxsom::builder::name("thrust") / cxsom::builder::name("We0"),
+      "save", cxsom::builder::name("thrust") / cxsom::builder::name("We-0"),
       wtype_ext, CACHE, TRACE, OPENED);
 
   errorMap->external(error, fx::match_gaussian, params.p_match, errorWe0,
