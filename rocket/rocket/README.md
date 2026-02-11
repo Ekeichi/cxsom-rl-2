@@ -65,7 +65,11 @@ make send-predict-rules
 ```
 voir code, car je ne comprends pas ce qu'est wtype.
 
-### Envoyer les données de prediction
+### Envoyer les données de prediction et lancer la prediction
 ```
 make send-predict-data
+```
+### Visualiser les predictions
+```
+make show-predict
 ```

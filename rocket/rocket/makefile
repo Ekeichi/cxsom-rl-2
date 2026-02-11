@@ -40,6 +40,9 @@ send-predict-data:  send-predict.py
 	@python send-predict.py
 	@make --quiet cxsom-ping-processor
 
+.PHONY: show-predictions
+show-predictions: show-predict.py
+	@python show-predict.py
 
 .PHONY: clear-predict
 clear-predict: 
