@@ -30,6 +30,12 @@ Giorgio malade (absent).
 version faite par analogie mais sans être maîtriser. Tout reprendre from scratch.
 On refait le point le 11/02, bien faire des réalisations/tests élémentaires sur chaque étape, histoire que Hervé puisse tester si besoin chaque truc.
 
+## 11/02/2026
+
+Prédicteur sorti de terre,
+
+Visualiser les prédictions et les évolutions des poids.
+
 
 
 
