@@ -71,7 +71,7 @@ make send-predict-data
 ```
 ### Visualiser les predictions
 ```
-make show-predict
+make show-predictions
 ```
 ![Prédictions architecture](architecture/predictions.png)
 
