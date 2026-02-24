@@ -48,6 +48,10 @@ show-predictions: show-predict.py
 clear-predict: 
 	@rm -rf `cat .cxsom-rootdir-config`/predict `cat .cxsom-rootdir-config`/rlx `cat .cxsom-rootdir-config`/out
 
+.PHONY: show-weights
+show-weights:
+	@python view-weights.py 
+
 # push sur gitlab
 push-gitlab:
 	@git add .

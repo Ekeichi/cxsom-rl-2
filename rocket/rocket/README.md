@@ -75,3 +75,7 @@ make show-predictions
 ```
 ![Prédictions architecture](architecture/predictions.png)
 
+### Visualiser les poids
+```
+make show-weights
+```
