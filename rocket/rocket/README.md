@@ -79,3 +79,4 @@ make show-predictions
 ```
 make show-weights
 ```
+![Poids de la prediction](architecture/poids.png)
