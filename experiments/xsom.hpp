@@ -35,3 +35,14 @@ struct Params {
         kwd::use("beta", .5), kwd::use("delta", .01), kwd::use("deadline", 100);
   }
 };
+
+auto build_map_settings(const Params& params) {
+  auto map_settings = cxsom::builder::map::make_settings();
+  map_settings.map_size          = MAP_SIZE;
+  map_settings.cache_size        = CACHE;
+  map_settings.weights_file_size = TRACE;
+  map_settings.bmu_file_size     = TRACE;
+  map_settings.kept_opened       = OPENED;
+  map_settings = {params.p_external, params.p_contextual, params.p_global};
+  return map_settings;
+}

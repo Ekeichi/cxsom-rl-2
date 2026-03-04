@@ -27,12 +27,7 @@ int main(int argc, char *argv[]) {
   auto speedMap = cxsom::builder::map::make_1D("speed");
   auto thrustMap = cxsom::builder::map::make_1D("thrust");
 
-  auto map_settings = cxsom::builder::map::make_settings();
-  map_settings.map_size = MAP_SIZE;
-  map_settings.cache_size = CACHE;
-  map_settings.weights_file_size = TRACE;
-  map_settings.kept_opened = OPENED;
-  map_settings = {params.p_external, params.p_contextual, params.p_global};
+  auto map_settings = build_map_settings(params);
 
   std::vector<cxsom::builder::Map::Layer *> layers;
   auto out_layer = std::back_inserter(layers);
