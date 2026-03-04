@@ -36,7 +36,14 @@ Prédicteur sorti de terre,
 
 Visualiser les prédictions et les évolutions des poids.
 
+## 04/03/2026
 
+présentation des graphes.
+mise au point concernant la procédure de prédiction.
 
+à faire :
+- afficher les poids dans le graphes, comme pour les exemples de cxsom
+- Pouvoir afficher le graphe à SAVEPOINT pendant la phase de prédiction
+- Entrainer les cartes avec des triplets lié temporellement
 
 
