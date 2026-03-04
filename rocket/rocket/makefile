@@ -50,9 +50,9 @@ clear-predict:
 clear-all: clear-predict
 	@rm -rf `cat .cxsom-rootdir-config`/in  `cat .cxsom-rootdir-config`/wgt  
 
-.PHONY: show-weights
-show-weights:
-	@python view-weights.py &
+.PHONY: show-training-weights
+show-training-weights:
+	@python view-training-weights.py &
 
 # push sur gitlab
 push-gitlab:
