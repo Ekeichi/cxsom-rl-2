@@ -33,4 +33,4 @@ with cx.variable.Realize(error_var_path) as error:
             for val in thrust_data:
                 thrust += float(val)
 
-print("Dataset feeding complete.")
+print("Dataset feeding for training complete.")
