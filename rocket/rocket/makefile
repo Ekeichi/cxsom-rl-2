@@ -14,7 +14,7 @@ send-train-rules: xsom-train
 	@./xsom-train send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
 
 .PHONY: send-train-data
-send-data:  send-train-data.py
+send-train-data:  send-train-data.py
 	@python send-train-data.py
 	@echo "ping du processeur..." 
 	@make --quiet cxsom-ping-processor
@@ -53,6 +53,10 @@ clear-all: clear-predict
 .PHONY: show-training-weights
 show-training-weights:
 	@python view-training-weights.py &
+
+.PHONY: show-freeze-weights
+show-freeze-weights:
+	@python view-freeze-weights.py &
 
 # push sur gitlab
 push-gitlab:
