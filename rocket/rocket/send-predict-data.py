@@ -16,16 +16,22 @@ def normalize_minmax(v):
         return np.zeros_like(v)
     return (v - v_min) / (v_max - v_min)
 
-error_var_path  = cx.variable.path_from(root_dir, 'in', 'predict_error')
-speed_var_path  = cx.variable.path_from(root_dir, 'in', 'predict_speed')
+error_var_path  = cx.variable.path_from(root_dir, 'in', 'error')
+speed_var_path  = cx.variable.path_from(root_dir, 'in', 'speed')
+thrust_var_path  = cx.variable.path_from(root_dir, 'in', 'thrust')
 
 with cx.variable.Realize(error_var_path) as error:
     with cx.variable.Realize(speed_var_path) as speed:
+        with cx.variable.Realize(thrust_var_path, cx.typing.make('Scalar'), 2, 10000) as thrust:
             error_data = normalize_minmax(raw_data[:, 0])
             speed_data = normalize_minmax(raw_data[:, 1])
+            thrust_data = normalize_minmax(raw_data[:, 2])
             for val in error_data:
                 error += float(val)
             for val in speed_data:
                 speed += float(val)
+            for val in thrust_data:
+                thrust += float(val)
+
 
 print("Dataset feeding for prediction complete.")

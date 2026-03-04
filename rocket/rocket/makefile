@@ -13,33 +13,33 @@ xsom-%: xsom-%.cpp $(CXSOM_HEADERS)
 send-train-rules: xsom-train
 	@./xsom-train send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
 
-.PHONY: send-data
-send-data:  send.py
-	@python send.py
+.PHONY: send-train-data
+send-data:  send-train-data.py
+	@python send-train-data.py
+	@echo "ping du processeur..." 
+	@make --quiet cxsom-ping-processor
+	@echo "Entrainement lancé." 
 
-.PHONY: show-3d
-show-3d: show-rocket-3D.py
+.PHONY: show-train-data
+show-3d: show-train-data.py
 	@if [ -z "$(SAMPLES)" ]; then \
 		python show-rocket-3D.py root-dir ; \
 	else \
 		python show-rocket-3D.py root-dir $(SAMPLES) ; \
 	fi
 
-.PHONY: feed
-feed:  feed.py
-	@python feed.py
-
 .PHONY: send-predict-rules 
 send-predict-rules: xsom-predict
 	@./xsom-predict send `cat .cxsom-hostname-config` `cat .cxsom-port-config` -- $(SAVEPOINT)
 
 .PHONY: send-predict-data
-send-predict-data:  send-predict.py
+send-predict-data:  send-predict-data.py
 	@python send-predict.py
+	@echo "ping du processeur..." 
 	@make --quiet cxsom-ping-processor
 
 .PHONY: show-predictions
-show-predictions: show-predict.py
+show-predictions: show-prediction.py
 	@python show-predict.py
 
 .PHONY: clear-predict
