@@ -59,16 +59,23 @@ make xsom-predict
 make cxsom-clear-processor
 ```
 
+### Nettoyer le root-dir avant la prédiction
+Il est primordial de reinitialiser le root-dir avant de faire les predictions. Cependant, il faut bien garder les poids sauvvegarder après l'entrainement. 
+```
+make clear-all
+```
+
 ### Envoyer les règles de prediction au processeur
+L'argument SAVEPOINT permet de choisir les poids qui seront utilisés pour faire les predictions. 
 ```
-make send-predict-rules
+make send-predict-rules SAVEPOINT=xxx
 ```
-voir code, car je ne comprends pas ce qu'est wtype.
 
 ### Envoyer les données de prediction et lancer la prediction
 ```
 make send-predict-data
 ```
+
 ### Visualiser les predictions
 ```
 make show-predictions

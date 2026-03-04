@@ -2,14 +2,12 @@
 include /usr/share/cxsom/cxsom-makefile
 
 SAMPLES ?=
-SAVEPOINT ?=260
 
-xsom-train: xsom-train.cpp
-	@g++ -o xsom-train `pkg-config --cflags cxsom-builder` xsom-train.cpp `pkg-config --libs cxsom-builder`
+CXSOM_HEADERS = $(wildcard *.hpp)
 
-xsom-predict: xsom-predict.cpp
-	@g++ -o xsom-predict `pkg-config --cflags cxsom-builder` xsom-predict.cpp `pkg-config --libs cxsom-builder`
-
+	
+xsom-%: xsom-%.cpp $(CXSOM_HEADERS)
+	@g++ -o $@ `pkg-config --cflags cxsom-builder` $< `pkg-config --libs cxsom-builder`
 
 .PHONY: send-train-rules
 send-train-rules: xsom-train
@@ -48,9 +46,13 @@ show-predictions: show-predict.py
 clear-predict: 
 	@rm -rf `cat .cxsom-rootdir-config`/predict `cat .cxsom-rootdir-config`/rlx `cat .cxsom-rootdir-config`/out
 
+.PHONY: clear-all
+clear-all: clear-predict
+	@rm -rf `cat .cxsom-rootdir-config`/in  `cat .cxsom-rootdir-config`/wgt  
+
 .PHONY: show-weights
 show-weights:
-	@python view-weights.py 
+	@python view-weights.py &
 
 # push sur gitlab
 push-gitlab:
