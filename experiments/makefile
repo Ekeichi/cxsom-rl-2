@@ -34,13 +34,13 @@ send-predict-rules: xsom-predict
 
 .PHONY: send-predict-data
 send-predict-data:  send-predict-data.py
-	@python send-predict.py
+	@python send-predict-data.py
 	@echo "ping du processeur..." 
 	@make --quiet cxsom-ping-processor
 
 .PHONY: show-predictions
 show-predictions: show-prediction.py
-	@python show-predict.py
+	@python show-prediction.py
 
 .PHONY: clear-predict
 clear-predict: 
@@ -52,11 +52,11 @@ clear-all: clear-predict
 
 .PHONY: show-training-weights
 show-training-weights:
-	@python view-training-weights.py &
+	@python show-training-weights.py &
 
-.PHONY: show-freeze-weights
-show-freeze-weights:
-	@python view-freeze-weights.py &
+.PHONY: show-BMU
+show-BMU:
+	@python show-BMU.py &
 
 # push sur gitlab
 push-gitlab:

@@ -3,19 +3,30 @@ import pycxsom as cx
 import numpy as np
 import tkinter as tk
 
-root_dir = "root-dir"
+root_dir ="root-dir"
 
 MAP_NAMES = ['error', 'speed', 'thrust']
+
+CONTEXT = {
+    'error':  ('speed', 'thrust'),
+    'speed':  ('thrust', 'error'),
+    'thrust': ('error', 'speed')
+}
+
+COLORS = {
+    'error': 'tab:blue',
+    'speed': 'tab:orange',
+    'thrust': 'tab:green'
+}
 
 class MapView(cx.tkviewer.At):
     def __init__(self, master, map_name, figsize=(5, 3.5), dpi=90):
         super().__init__(master, map_name, figsize, dpi)
         self.map_name = map_name
 
-        self.We_path   = cx.variable.path_from(root_dir, 'wgt',  map_name + '/We-0')
-        self.Wc0_path  = cx.variable.path_from(root_dir, 'wgt',  map_name + '/Wc-0')
-        self.Wc1_path  = cx.variable.path_from(root_dir, 'wgt',  map_name + '/Wc-1')
-        self.BMU_path  = cx.variable.path_from(root_dir, 'out',  map_name + '/BMU')
+        self.We_path  = cx.variable.path_from(root_dir, 'wgt', map_name + '/We-0')
+        self.Wc0_path = cx.variable.path_from(root_dir, 'wgt', map_name + '/Wc-0')
+        self.Wc1_path = cx.variable.path_from(root_dir, 'wgt', map_name + '/Wc-1')
 
         with cx.variable.Realize(self.We_path) as We:
             self.Xe = np.linspace(0, 1, We.datatype.shape()[0])
@@ -36,30 +47,20 @@ class MapView(cx.tkviewer.At):
             Yc1 = Wc1[at]
 
         ax.set_ylim(0, 1)
-        ax.set_title('"{}\" — pas #{}'.format(self.map_name, at), fontsize=9)
-        ax.plot(self.Xe,  Ye,  label='We-0',  linewidth=1)
-        ax.plot(self.Xc0, Yc0, label='Wc-0',  linewidth=1)
-        ax.plot(self.Xc1, Yc1, label='Wc-1',  linewidth=1)
+        ax.set_title('"{}" — pas #{}'.format(self.map_name, at), fontsize=9)
+        c_map = COLORS[self.map_name]
+        c_ctx0 = COLORS[CONTEXT[self.map_name][0]]
+        c_ctx1 = COLORS[CONTEXT[self.map_name][1]]
 
-        # Superposition des BMUs issus de root-dir/out/
-        with cx.variable.Realize(self.BMU_path) as BMU:
-            r = BMU.time_range()
-            if r is not None:
-                tmin, tmax = r
-                for t in range(tmin, tmax + 1):
-                    try:
-                        bmu = BMU[t]
-                        if bmu is not None:
-                            ax.axvline(x=float(bmu), color='red', alpha=0.3, linewidth=0.5)
-                    except Exception:
-                        pass
-
+        ax.plot(self.Xe,  Ye,  c=c_map,  label=f'We ({self.map_name})',  linewidth=1.5)
+        ax.plot(self.Xc0, Yc0, c=c_ctx0, label=f'Wc-0 ({CONTEXT[self.map_name][0]})', linewidth=1.5)
+        ax.plot(self.Xc1, Yc1, c=c_ctx1, label=f'Wc-1 ({CONTEXT[self.map_name][1]})', linewidth=1.5)
         ax.legend(fontsize=7, loc='upper right')
         ax.tick_params(labelsize=7)
 
 
 root = tk.Tk()
-root.title('Visualisation des poids (freeze)')
+root.title('Visualisation des poids')
 root.protocol('WM_DELETE_WINDOW', lambda: sys.exit(0))
 
 screen_w = root.winfo_screenwidth()
@@ -85,9 +86,9 @@ v_error  = MapView(row1, 'error')
 v_speed  = MapView(row1, 'speed')
 v_thrust = MapView(row2, 'thrust')
 
-v_error.widget().pack (side=tk.LEFT, fill=tk.BOTH, expand=True, padx=2, pady=2)
-v_speed.widget().pack (side=tk.LEFT, fill=tk.BOTH, expand=True, padx=2, pady=2)
-v_thrust.widget().pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=2, pady=2)
+v_error.widget().pack (side=tk.LEFT,  fill=tk.BOTH, expand=True, padx=2, pady=2)
+v_speed.widget().pack (side=tk.LEFT,  fill=tk.BOTH, expand=True, padx=2, pady=2)
+v_thrust.widget().pack(side=tk.LEFT,  fill=tk.BOTH, expand=True, padx=2, pady=2)
 
 for v in (v_error, v_speed, v_thrust):
     v.set_history_slider(slider)

@@ -32,18 +32,25 @@ make send-train-rules
 
 ### Envoyer les input avec les données de la fusée dans le rootdir (elles s'affichent dans le scan-vars)
 ```
-make send-data
-```
-### Afficher les entrées présentes dans le rootdir
-```
-make show-3d
-```
-
-### Lancer l'entrainement
-```
-make feed
+make send-train-data
 ```
 Là, l'entrainement se lance.
+
+### Si jamais l'entrainement s'arrête en cours, faire un ping.
+```
+make cxsom-ping-processor
+```
+
+### Afficher les entrées présentes dans le rootdir
+```
+make show-train-data
+```
+### Visualiser les poids
+```
+make show-training-weights
+```
+![Poids de la prediction](architecture/poids.png)
+
 
 # Prédiction
 L'architecture est légérement modifiée lorsqu'on veut réaliser une prediction. En effet, la carte qui gère le thrust ne reçoit plus de valeur exterieur quand on souhaite prédire. 
@@ -82,8 +89,8 @@ make show-predictions
 ```
 ![Prédictions architecture](architecture/predictions.png)
 
-### Visualiser les poids
+### Visualiser les poids et les BMU
 ```
-make show-weights
+make show-BMU
 ```
-![Poids de la prediction](architecture/poids.png)
+![Poids de la prediction](architecture/poidsAndBMU.png)
