@@ -51,6 +51,12 @@ make show-training-weights
 ```
 ![Poids de la prediction](architecture/poids.png)
 
+### Visualiser les lignes de poids
+```
+make show-string-error
+make show-string-speed
+make show-string-thrust
+```
 
 # Prédiction
 L'architecture est légérement modifiée lorsqu'on veut réaliser une prediction. En effet, la carte qui gère le thrust ne reçoit plus de valeur exterieur quand on souhaite prédire. 

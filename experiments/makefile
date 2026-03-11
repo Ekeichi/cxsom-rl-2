@@ -58,6 +58,10 @@ show-training-weights:
 show-BMU:
 	@python show-BMU.py &
 
+.PHONY: show-string-% 
+show-string-%:
+	@python show-string.py root-dir $*
+
 # push sur gitlab
 push-gitlab:
 	@git add .
