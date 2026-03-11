@@ -2,8 +2,15 @@ import sys
 import pycxsom as cx
 import numpy as np
 import tkinter as tk
+import argparse
+from pathlib import Path
 
-root_dir ="root-dir"
+parser = argparse.ArgumentParser()
+parser.add_argument('--root-dir', help='Path to the root directory', required=True)
+parser.add_argument('--timeline', help='The timeline where to find the weights', required=True)
+args = parser.parse_args()
+
+root_dir = Path(args.root_dir)
 
 MAP_NAMES = ['error', 'speed', 'thrust']
 
@@ -24,9 +31,9 @@ class MapView(cx.tkviewer.At):
         super().__init__(master, map_name, figsize, dpi)
         self.map_name = map_name
 
-        self.We_path  = cx.variable.path_from(root_dir, 'wgt', map_name + '/We-0')
-        self.Wc0_path = cx.variable.path_from(root_dir, 'wgt', map_name + '/Wc-0')
-        self.Wc1_path = cx.variable.path_from(root_dir, 'wgt', map_name + '/Wc-1')
+        self.We_path  = cx.variable.path_from(root_dir, args.timeline, map_name + '/We-0')
+        self.Wc0_path = cx.variable.path_from(root_dir, args.timeline, map_name + '/Wc-0')
+        self.Wc1_path = cx.variable.path_from(root_dir, args.timeline, map_name + '/Wc-1')
 
         with cx.variable.Realize(self.We_path) as We:
             self.Xe = np.linspace(0, 1, We.datatype.shape()[0])
@@ -72,7 +79,7 @@ root.geometry('{}x{}'.format(win_w, win_h))
 slider = cx.tkviewer.HistoryFromVariableSlider(
     root,
     'time instants',
-    cx.variable.path_from(root_dir, 'wgt', 'error/We-0')
+    cx.variable.path_from(root_dir, args.timeline, 'error/We-0')
 )
 slider.widget().pack(side=tk.TOP, fill=tk.X, padx=4, pady=2)
 

@@ -1,4 +1,4 @@
-
+import sys
 import tkinter as tk
 import pycxsom as cx
 import matplotlib.pyplot as plt
@@ -114,7 +114,8 @@ class String3DView(cx.tkviewer.At):
 
         # 2. Tracé de la corde / carte 1D en 3D
         c = COLORS.get(self.map_name, 'b')
-        ax.plot(E, S, T, marker='o', markersize=4, color=c, linewidth=2, label=f"Map String '{self.map_name}'")
+        # ax.plot(E, S, T, marker='o', markersize=4, color=c, linewidth=2, label=f"Map String '{self.map_name}'")
+        ax.plot(E, S, T, color=c, linewidth=1, label=f"Map String '{self.map_name}'")
         
         ax.set_xlabel('error')
         ax.set_ylabel('speed')

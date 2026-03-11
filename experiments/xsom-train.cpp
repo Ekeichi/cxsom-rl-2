@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
   for (auto map : archi->maps)
     map->internals_random_at(0);
 
-  int save_period = TRACE / SAVE_TRACE;
+  int save_period = SAVE_PERIOD;
 
   // Saving weights
   for (auto layer_ptr : layers) {
