@@ -2,10 +2,10 @@
 include /usr/share/cxsom/cxsom-makefile
 
 SAMPLES ?=
+DATA_FILE = ./data/rocket-discrete-controller.dat
 
 CXSOM_HEADERS = $(wildcard *.hpp)
 
-	
 xsom-%: xsom-%.cpp $(CXSOM_HEADERS)
 	@g++ -o $@ `pkg-config --cflags cxsom-builder` $< `pkg-config --libs cxsom-builder`
 
@@ -15,7 +15,7 @@ send-train-rules: xsom-train
 
 .PHONY: send-train-data
 send-train-data:  send-train-data.py
-	@python send-train-data.py
+	@python send-train-data.py --root-dir `cat .cxsom-rootdir-config` --data-file $(DATA_FILE)
 	@echo "ping du processeur..." 
 	@make --quiet cxsom-ping-processor
 	@echo "Entrainement lancé." 

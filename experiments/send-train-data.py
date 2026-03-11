@@ -1,10 +1,16 @@
-import os 
-import sys
+
 import pycxsom as cx
 import numpy as np
+import argparse
+from pathlib import Path
 
-data_file = 'data/rocket-discrete-controller.dat'
-root_dir = 'root-dir'
+parser = argparse.ArgumentParser()
+parser.add_argument('--data-file', help='Path to the training data file', required=True)
+parser.add_argument('--root-dir', help='Path to the root directory', required=True)
+args = parser.parse_args()
+
+data_file = Path(args.data_file)
+root_dir = Path(args.root_dir)
 
 raw_data = np.loadtxt(data_file)
 np.random.shuffle(raw_data)
