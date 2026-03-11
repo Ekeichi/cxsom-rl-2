@@ -60,7 +60,7 @@ show-BMU:
 
 .PHONY: show-string-% 
 show-string-%:
-	@python show-string.py root-dir $*
+	@python show-string.py --root-dir `cat .cxsom-rootdir-config` --target-map $*
 
 # push sur gitlab
 push-gitlab:

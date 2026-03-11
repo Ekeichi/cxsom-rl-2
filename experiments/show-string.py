@@ -1,11 +1,18 @@
-import sys
+
 import tkinter as tk
 import pycxsom as cx
 import matplotlib.pyplot as plt
 import numpy as np
+import argparse
+from pathlib import Path
 
-root_dir = sys.argv[1] if len(sys.argv) > 1 else 'root-dir'
-target_map = sys.argv[2] if len(sys.argv) > 2 else 'error'
+parser = argparse.ArgumentParser()
+parser.add_argument('--target-map', help='The map we are interested in', required=True)
+parser.add_argument('--root-dir', help='Path to the root directory', required=True)
+args = parser.parse_args()
+
+root_dir = Path(args.root_dir)
+target_map = args.target_map
 
 if target_map not in ['error', 'speed', 'thrust']:
     print(f"Erreur : '{target_map}' n'est pas une carte valide. Choisissez parmi: error, speed, thrust.")
