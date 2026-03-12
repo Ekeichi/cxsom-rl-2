@@ -4,8 +4,8 @@ help:
 	@echo
 	@echo "make help-cxsom"
 	@echo
-	@echo "make send-train-data NB_PASSES=3"
-	@echo "make restart-train NB_PASSES=3"
+	@echo "make send-train-data NB_PASSES=3 SMOOTHING=True"
+	@echo "make restart-train NB_PASSES=3 SMOOTHING=True"
 	@echo
 	@echo
 
@@ -28,7 +28,7 @@ send-train-rules: xsom-train
 
 .PHONY: send-train-data
 send-train-data:  send-train-data.py
-	@python send-train-data.py --root-dir `cat .cxsom-rootdir-config` --data-file $(DATA_FILE) --nb-passes $(NB_PASSES)
+	@python send-train-data.py --root-dir `cat .cxsom-rootdir-config` --data-file $(DATA_FILE) --nb-passes $(NB_PASSES) --smoothing $(SMOOTHING)
 	@echo "ping du processeur..." 
 	@make --quiet cxsom-ping-processor
 	@echo "Entrainement lancé." 

@@ -25,6 +25,12 @@ make cxsom-scan-vars
 ```
 # Entrainement
 
+### Si vous souhaitez relancer rapidement les entrainements pour tester les paramètres
+```
+make restart-train NB_PASSES=X SMOOTHING=Y
+```
+avec X le nombre de dataset à envoyer au processeur (2600 points) et Y (bool) si vous souhaitez lisser la poussée pour les données d'entrée.
+
 ### Envoyer les regles d'entrainement au processeur (le root-dir se remplit)
 ```
 make send-train-rules

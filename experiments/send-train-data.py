@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--data-file', help='Path to the training data file', required=True)
 parser.add_argument('--root-dir', help='Path to the root directory', required=True)
 parser.add_argument('--nb-passes', help='We pass all the data NB_PASSES times.', type=int, required=True)
+parser.add_argument('--smoothing', help='If you want to smooth the thrust', type=lambda x: str(x).lower() in ['true', '1', 'yes'], required=True)
 args = parser.parse_args()
 
 data_file = Path(args.data_file)
@@ -49,7 +50,8 @@ speed_var_path  = cx.variable.path_from(root_dir, 'in', 'speed')
 thrust_var_path = cx.variable.path_from(root_dir, 'in', 'thrust')
 
 # Lissage des données binaire pour créer une zone de transition continue (thrust)
-raw_data[:, 2] = smooth_grid_data(raw_data[:, 2], kernel_size=5)
+if (args.smoothing):
+    raw_data[:, 2] = smooth_grid_data(raw_data[:, 2], kernel_size=5)
 
 with cx.variable.Realize(error_var_path) as error:
     with cx.variable.Realize(speed_var_path) as speed:
