@@ -6,3 +6,6 @@ xsom-train
 
 root-dir/
 
+predictions/*.dat
+predictions/*.plot
+rocket-test

@@ -90,3 +90,12 @@ push-gitlab:
 restart-train:
 	@make --quiet cxsom-clear-rootdir cxsom-clear-processor send-train-rules
 	@make --quiet send-train-data 
+
+
+.PHONY: prediction
+prediction:
+	@python3 process-prediction-data.py
+	@g++ -o predictions/rocket-test predictions/rocket-test.cpp -I. -Ipredictions -std=c++20 `pkg-config --cflags gdyn rllib2` `pkg-config --libs gdyn rllib2`
+	@./predictions/rocket-test predictions/predicted-controller.dat
+	@gnuplot -p predictions/rocket-orbit.plot
+
