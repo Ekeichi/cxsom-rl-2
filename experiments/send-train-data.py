@@ -13,7 +13,7 @@ data_file = Path(args.data_file)
 root_dir = Path(args.root_dir)
 
 raw_data = np.loadtxt(data_file)
-
+    
 def normalize_minmax(v):
     v_min, v_max = v.min(), v.max()
     if v_max - v_min == 0:
@@ -21,9 +21,35 @@ def normalize_minmax(v):
         return np.zeros_like(v)
     return (v - v_min) / (v_max - v_min)
 
+def smooth_grid_data(v, kernel_size=5):
+    """
+    Applique une moyenne mobile 2D pour transformer une frontière binaire
+    (0 ou 1) en une zone de transition continue.
+    On suppose que les données sont une grille carrée parfaite.
+    """
+    grid_size = int(np.sqrt(len(v)))
+    if grid_size * grid_size != len(v):
+        print(f"Warning: data length ({len(v)}) is not a perfect square square. No smoothing applied.")
+        return v
+    
+    grid = v.reshape(grid_size, grid_size)
+    smoothed = np.zeros_like(grid, dtype=float)
+    offset = kernel_size // 2
+    
+    for i in range(grid_size):
+        for j in range(grid_size):
+            i_min, i_max = max(0, i - offset), min(grid_size, i + offset + 1)
+            j_min, j_max = max(0, j - offset), min(grid_size, j + offset + 1)
+            smoothed[i, j] = np.mean(grid[i_min:i_max, j_min:j_max])
+            
+    return smoothed.flatten()
+
 error_var_path  = cx.variable.path_from(root_dir, 'in', 'error')
 speed_var_path  = cx.variable.path_from(root_dir, 'in', 'speed')
 thrust_var_path = cx.variable.path_from(root_dir, 'in', 'thrust')
+
+# Lissage des données binaire pour créer une zone de transition continue (thrust)
+raw_data[:, 2] = smooth_grid_data(raw_data[:, 2], kernel_size=5)
 
 with cx.variable.Realize(error_var_path) as error:
     with cx.variable.Realize(speed_var_path) as speed:

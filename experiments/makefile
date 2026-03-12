@@ -34,11 +34,11 @@ send-train-data:  send-train-data.py
 	@echo "Entrainement lancé." 
 
 .PHONY: show-train-data
-show-3d: show-train-data.py
+show-train-data: show-train-data.py
 	@if [ -z "$(SAMPLES)" ]; then \
-		python show-rocket-3D.py root-dir ; \
+		python show-train-data.py root-dir ; \
 	else \
-		python show-rocket-3D.py root-dir $(SAMPLES) ; \
+		python show-train-data.py root-dir $(SAMPLES) ; \
 	fi
 
 .PHONY: send-predict-rules 
@@ -77,7 +77,7 @@ show-BMU:
 
 .PHONY: show-string-% 
 show-string-%:
-	@python show-string.py --root-dir `cat .cxsom-rootdir-config` --target-map $*
+	@python show-string.py --root-dir `cat .cxsom-rootdir-config` --target-map $* --data-file $(DATA_FILE)
 
 # push sur gitlab
 push-gitlab:

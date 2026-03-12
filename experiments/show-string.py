@@ -6,12 +6,21 @@ import numpy as np
 import argparse
 from pathlib import Path
 
+def normalize_minmax(v):
+    v_min, v_max = v.min(), v.max()
+    if v_max - v_min == 0:
+        print(f"Warning: constant column detected (min=max={v_min})")
+        return np.zeros_like(v)
+    return (v - v_min) / (v_max - v_min)
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--target-map', help='The map we are interested in', required=True)
-parser.add_argument('--root-dir', help='Path to the root directory', required=True)
+parser.add_argument('--root-dir',   help='Path to the root directory',   required=True)
+parser.add_argument('--data-file',   help='Path to the data file',   required=True)
 args = parser.parse_args()
 
 root_dir = Path(args.root_dir)
+data_file = Path(args.data_file)
 target_map = args.target_map
 
 if target_map not in ['error', 'speed', 'thrust']:
@@ -38,15 +47,18 @@ def array_of_var(path):
     )
 
 # Chargement des données d'entrée
-in_error  = array_of_var(cx.variable.path_from(root_dir, 'in', 'error'))
-in_speed  = array_of_var(cx.variable.path_from(root_dir, 'in', 'speed'))
-in_thrust = array_of_var(cx.variable.path_from(root_dir, 'in', 'thrust'))
+raw_data = np.loadtxt(data_file)
+
+error_data = normalize_minmax(raw_data[:, 0])
+speed_data = normalize_minmax(raw_data[:, 1])
+thrust_data = normalize_minmax(raw_data[:, 2])
+np.random.shuffle(raw_data)
 
 # S'assurer qu'elles ont la même longueur
-min_len = min(len(in_error), len(in_speed), len(in_thrust))
-in_error  = in_error[:min_len]
-in_speed  = in_speed[:min_len]
-in_thrust = in_thrust[:min_len]
+min_len = min(len(error_data), len(speed_data), len(thrust_data))
+error_data  = error_data[:min_len]
+speed_data  = speed_data[:min_len]
+thrust_data = thrust_data[:min_len]
 print(f"Chargement terminé ({min_len} points).")
 
 
@@ -71,7 +83,7 @@ class String3DView(cx.tkviewer.At):
         ax = self.fig.add_subplot(111, projection='3d')
         
         # 1. Tracé des entrées en fond (nuage de points)
-        ax.scatter(in_error, in_speed, in_thrust, s=2, c='gray', alpha=0.05, label='Input Space', rasterized=True)
+        ax.scatter(error_data, speed_data, thrust_data, s=2, c='gray', alpha=0.05, label='Input Space', rasterized=True)
         
         # Récupération des poids au pas de temps donné 'at'
         try:
