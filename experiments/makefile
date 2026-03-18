@@ -22,9 +22,16 @@ CXSOM_HEADERS = $(wildcard *.hpp)
 xsom-%: xsom-%.cpp $(CXSOM_HEADERS)
 	@g++ -o $@ `pkg-config --cflags cxsom-builder` $< `pkg-config --libs cxsom-builder`
 
+recsom-%: recsom-%.cpp $(CXSOM_HEADERS)
+	@g++ -o $@ `pkg-config --cflags cxsom-builder` $< `pkg-config --libs cxsom-builder`
+
 .PHONY: send-train-rules
 send-train-rules: xsom-train
 	@./xsom-train send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
+
+.PHONY: send-rectrain-rules
+send-rectrain-rules: recsom-train
+	@./recsom-train send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
 
 .PHONY: send-train-data
 send-train-data:  send-train-data.py

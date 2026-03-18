@@ -9,3 +9,4 @@ root-dir/
 predictions/*.dat
 predictions/*.plot
 rocket-test
+recsom-train
