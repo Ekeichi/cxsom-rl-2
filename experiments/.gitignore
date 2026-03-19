@@ -1,12 +1,18 @@
 .cxsom*
 .skednet*
 
-xsom-predict
-xsom-train
-
-root-dir/
-
-predictions/*.dat
-predictions/*.plot
+# Executables
+xsom-*
+recsom-*
 rocket-test
-recsom-train
+recdata-generation
+
+# Keep source and config files that match executable patterns
+!*.cpp
+!*.hpp
+!*.py
+
+# Results and data
+root-dir/
+002-inline/predictions/*.dat
+002-inline/predictions/*.plot

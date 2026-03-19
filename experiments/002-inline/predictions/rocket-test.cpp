@@ -49,7 +49,7 @@ public:
   }
 };
 
-#define TARGET_PERIOD 50 // seconds
+#define TARGET_PERIOD 20 // seconds
 #define MARGIN 200
 #define EPISODE_DURATION 10 * TARGET_PERIOD
 int main(int argc, char *argv[]) {
@@ -127,10 +127,8 @@ int main(int argc, char *argv[]) {
 
         ++tgt;
         if (action) {
-          auto o = *rocket;
-
-          datafile << t << ' ' << o.height << ' ' << o.speed << ' '
-                   << action->value << std::endl;
+          datafile << t << ' ' << observation.error << ' ' << observation.speed
+                   << ' ' << action->value << std::endl;
           t += dt;
         }
       }
