@@ -94,17 +94,18 @@ int main(int argc, char *argv[]) {
   auto relative_rocket =
       types::continuous_system(rocket, [&tgt]() { return tgt.height; });
 
+  auto exposed_rocket = types::exposed_system(relative_rocket);
+
   // The controller computes the thrust from height and speed
   // observations. To do so, it uses relative_rocket (that knows the
   // target) to convert (height, speed) into (error, speed). Then it
   // retrieves the corresponding discrete state. The index of that
   // discrete states is tne indext of the thrust value in the
   // optimal_thrust array we have loaded from previous example.
-  auto controller =
-      [&optimal_thrusts, &relative_rocket,
-       dt](const types::base_continuous_system::observation_type &obs)
-      -> types::base_continuous_system::command_type {
-    types::S current{relative_rocket.convert(obs)};
+  auto controller = [&optimal_thrusts, &relative_rocket,
+                     dt](const types::exposed_system::observation_type &obs)
+      -> types::continuous_system::command_type {
+    types::S current{obs};
     return {.value = optimal_thrusts[static_cast<std::size_t>(current)],
             .duration = dt};
   };
@@ -114,39 +115,28 @@ int main(int argc, char *argv[]) {
   // Controlling the rocket is now very easy...
 
   {
-    std::string filename{"predictions/rocket-orbit.dat"};
+    std::string filename{"rocket-orbit.dat"};
     std::ofstream datafile{filename};
-    double t = 0;
-    std::size_t orbit_size = std::size_t((EPISODE_DURATION) / dt);
-    for (auto [observation, action, report] :
-         gdyn::views::controller(rocket, controller) |
-             gdyn::views::orbit(rocket) | std::views::take(orbit_size)) {
-      datafile << t << ' ' << observation.height << ' ' << tgt.height
-               << std::endl;
-      ++tgt;
-      if (action)
-        t += dt;
-    }
-    std::cout << "File " << filename << " generated." << std::endl;
+    if (datafile) {
+      double t = 0;
+      std::size_t orbit_size = std::size_t((EPISODE_DURATION) / dt);
+      for (auto [observation, action, report] :
+           gdyn::views::controller(exposed_rocket, controller) |
+               gdyn::views::orbit(exposed_rocket) |
+               std::views::take(orbit_size)) {
+
+        ++tgt;
+        if (action) {
+          auto o = *rocket;
+
+          datafile << t << ' ' << o.height << ' ' << o.speed << ' '
+                   << action->value << std::endl;
+          t += dt;
+        }
+      }
+
+      std::cout << "File " << filename << " generated." << std::endl;
+    } else
+      std::cout << "Cannot open File " << filename << std::endl;
   }
-
-  {
-    std::string filename{"predictions/rocket-orbit.plot"};
-    std::ofstream plotfile{filename};
-
-    plotfile << "plot 'predictions/rocket-orbit.dat' using 1:2 with lines lc "
-                "rgb \"black\" "
-                "title \"rocket height\", \\"
-             << std::endl
-             << "'predictions/rocket-orbit.dat' using 1:3 with lines lc rgb "
-                "\"red\" title "
-                "\"target height\""
-             << std::endl;
-    std::cout << std::endl
-              << "Run : gnuplot -p " << filename << std::endl
-              << std::endl
-              << std::endl;
-  }
-
-  return 0;
 }

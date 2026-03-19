@@ -61,7 +61,7 @@ make show-training-weights
 ```
 make show-string-error
 make show-string-speed
-make show-string-thrust
+make show-string-thrust<>
 ```
 
 # Prédiction

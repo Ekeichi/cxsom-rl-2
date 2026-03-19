@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
 root_dir = 'root-dir'
-timestep = 0
+timestep = 15
 
 if len(sys.argv) > 1:
     root_dir = sys.argv[1]

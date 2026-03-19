@@ -15,7 +15,7 @@ include /usr/share/cxsom/cxsom-makefile
 
 SAMPLES ?=
 DATA_FILE = ./data/rocket-discrete-controller.dat
-
+REC_DATA_FILE = ./data/rocket-discrete-controller-continu.dat
 CXSOM_HEADERS = $(wildcard *.hpp)
 
 
@@ -39,6 +39,13 @@ send-train-data:  send-train-data.py
 	@echo "ping du processeur..." 
 	@make --quiet cxsom-ping-processor
 	@echo "Entrainement lancé." 
+
+.PHONY: send-train-rec-data
+send-train-rec-data:  send-train-rec-data.py
+	@python send-train-rec-data.py --root-dir `cat .cxsom-rootdir-config` --data-file $(REC_DATA_FILE) --nb-passes $(NB_PASSES) --smoothing $(SMOOTHING)
+	@echo "ping du processeur..." 
+	@make --quiet cxsom-ping-processor
+	@echo "Entrainement lancé."
 
 .PHONY: show-train-data
 show-train-data: show-train-data.py
@@ -86,18 +93,16 @@ show-BMU:
 show-string-%:
 	@python show-string.py --root-dir `cat .cxsom-rootdir-config` --target-map $* --data-file $(DATA_FILE)
 
-# push sur gitlab
-push-gitlab:
-	@git add .
-	@git commit -m "update"
-	@git push
-
 
 .PHONY: restart-train
 restart-train:
 	@make --quiet cxsom-clear-rootdir cxsom-clear-processor send-train-rules
 	@make --quiet send-train-data 
 
+.PHONY: restart-rectrain
+restart-rectrain:
+	@make --quiet cxsom-clear-rootdir cxsom-clear-processor send-rectrain-rules
+	@make --quiet send-train-rec-data 
 
 .PHONY: prediction
 prediction:
