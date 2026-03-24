@@ -33,15 +33,16 @@ constexpr double MIN_SPEED = -100.0;
 constexpr double MAX_SPEED = 100.0;
 constexpr double MAX_THRUST = 15.0;
 
-constexpr const char* IN_TIMELINE = "in";
-constexpr const char* OUT_TIMELINE = "predict";
-constexpr const char* ERROR_VAR = "error";
-constexpr const char* SPEED_VAR = "speed";
-constexpr const char* THRUST_VAR = "thrust";
+constexpr const char *IN_TIMELINE = "in";
+constexpr const char *OUT_TIMELINE = "predict";
+constexpr const char *ERROR_VAR = "error";
+constexpr const char *SPEED_VAR = "speed";
+constexpr const char *THRUST_VAR = "thrust";
 
+// Construction de la target à suivre pour la fusée
 struct target {
 private:
-  std::mt19937& gen;
+  std::mt19937 &gen;
   std::uniform_real_distribution<double> d;
   std::size_t period;
   std::size_t count;
@@ -49,17 +50,14 @@ private:
 public:
   double height;
 
-  target(std::mt19937& gen, double margin, std::size_t period,
-         const gdyn::problem::rocket::parameters& params)
-      : gen(gen),
-        d(margin, params.ceiling_height - margin),
-        period(period),
-        count(1),
-        height(0) {
+  target(std::mt19937 &gen, double margin, std::size_t period,
+         const gdyn::problem::rocket::parameters &params)
+      : gen(gen), d(margin, params.ceiling_height - margin), period(period),
+        count(1), height(0) {
     ++(*this);
   }
 
-  target& operator++() {
+  target &operator++() {
     if (--count == 0) {
       height = d(gen);
       count = period;
@@ -71,43 +69,45 @@ public:
 double clamp01(double x) { return std::clamp(x, 0.0, 1.0); }
 
 double normalize(double x, double min_v, double max_v) {
-  if (max_v <= min_v) return 0.0;
+  if (max_v <= min_v)
+    return 0.0;
   return clamp01((x - min_v) / (max_v - min_v));
 }
 
 // We trained thrust normalized in [0, 1], so we denormalize to [0, 15].
 double denormalize_thrust(double t01) { return clamp01(t01) * MAX_THRUST; }
 
-void write_scalar(cxsom::data::Center& center, const cxsom::symbol::Instance& who,
-                  double value) {
-  center[who]->set([&](cxsom::data::Availability& status, std::size_t&,
-                        cxsom::data::Base& d) {
-    static_cast<cxsom::data::Scalar&>(d).value = value;
+void write_scalar(cxsom::data::Center &center,
+                  const cxsom::symbol::Instance &who, double value) {
+  center[who]->set([&](cxsom::data::Availability &status, std::size_t &,
+                       cxsom::data::Base &d) {
+    static_cast<cxsom::data::Scalar &>(d).value = value;
     status = cxsom::data::Availability::Ready;
   });
 }
 
-bool try_read_scalar(cxsom::data::Center& center, const cxsom::symbol::Instance& who,
-                     double& out) {
+bool try_read_scalar(cxsom::data::Center &center,
+                     const cxsom::symbol::Instance &who, double &out) {
   auto inst = center[who];
   cxsom::data::Availability synced = cxsom::data::Availability::Busy;
 
-  inst->sync([&synced](cxsom::data::Availability s) { synced = s; });
+  inst->sync([&](cxsom::data::Availability s) { synced = s; });
   if (synced != cxsom::data::Availability::Ready) return false;
 
   inst->get([&](cxsom::data::Availability status, std::size_t,
-                const cxsom::data::Base& d) {
+                const cxsom::data::Base &d) {
     if (status == cxsom::data::Availability::Ready)
-      out = static_cast<const cxsom::data::Scalar&>(d).value;
+      out = static_cast<const cxsom::data::Scalar &>(d).value;
   });
   return true;
 }
 
 } // namespace
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   std::string root_dir = "root-dir";
-  if (argc >= 2) root_dir = argv[1];
+  if (argc >= 2)
+    root_dir = argv[1];
 
   std::random_device rd;
   std::mt19937 gen(rd());
@@ -133,13 +133,15 @@ int main(int argc, char* argv[]) {
   std::size_t step = 0;
 
   auto cxsom_controller =
-      [&](const types::exposed_system::observation_type& obs)
+      [&](const types::exposed_system::observation_type &obs)
       -> types::continuous_system::command_type {
     const double e01 = normalize(obs.error, MIN_ERROR, MAX_ERROR);
     const double s01 = normalize(obs.speed, MIN_SPEED, MAX_SPEED);
 
-    write_scalar(center, {IN_TIMELINE, ERROR_VAR, static_cast<unsigned int>(step)}, e01);
-    write_scalar(center, {IN_TIMELINE, SPEED_VAR, static_cast<unsigned int>(step)}, s01);
+    write_scalar(
+        center, {IN_TIMELINE, ERROR_VAR, static_cast<unsigned int>(step)}, e01);
+    write_scalar(
+        center, {IN_TIMELINE, SPEED_VAR, static_cast<unsigned int>(step)}, s01);
 
     double predicted_t01 = 0.0;
     bool got_prediction = false;
@@ -148,13 +150,15 @@ int main(int argc, char* argv[]) {
       got_prediction = try_read_scalar(
           center, {OUT_TIMELINE, THRUST_VAR, static_cast<unsigned int>(step)},
           predicted_t01);
-      if (got_prediction) break;
+      if (got_prediction)
+        break;
       std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 
     ++step;
 
-    const double thrust = got_prediction ? denormalize_thrust(predicted_t01) : 0.0;
+    const double thrust =
+        got_prediction ? denormalize_thrust(predicted_t01) : 0.0;
     return {.value = thrust, .duration = dt};
   };
 
@@ -171,12 +175,13 @@ int main(int argc, char* argv[]) {
            gdyn::views::orbit(exposed_rocket) | std::views::take(orbit_size)) {
     ++tgt;
     if (action) {
-      datafile << t << ' ' << observation.error << ' ' << observation.speed << ' '
-               << action->value << '\n';
+      datafile << t << ' ' << observation.error << ' ' << observation.speed
+               << ' ' << action->value << '\n';
       t += dt;
     }
   }
 
-  std::cout << "File predictions/rocket-orbit-inline.dat generated." << std::endl;
+  std::cout << "File predictions/rocket-orbit-inline.dat generated."
+            << std::endl;
   return 0;
 }
