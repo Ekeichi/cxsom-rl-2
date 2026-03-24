@@ -51,7 +51,7 @@ public:
 
 #define TARGET_PERIOD 20 // seconds
 #define MARGIN 200
-#define EPISODE_DURATION 10 * TARGET_PERIOD
+#define EPISODE_DURATION 20 * TARGET_PERIOD
 int main(int argc, char *argv[]) {
 
   if (argc != 2) {
