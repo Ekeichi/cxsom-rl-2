@@ -1,0 +1,74 @@
+
+A##
+Entrainment avec les données shufflées (issues de predicted-controller.dat 4-1)
+Construction d'un CXSOM de prédiction de thrust/
+Ici, on n'a pas les pb d'auto-organisation liées au fait que les données sont temporellement dépendentes.
+
+C'est l'exemple 4-1, qui génère une grille de thrust associée à chaque état. pi*(s)
+
+### rocket.cpp (à faire)
+
+Contrôleur  C :
+- connaît e_t, s_t
+- append e_t dans rootdir/in/error
+- append s_t dans rootdir/in/speed
+- ping le serveur cxsom... il ajoute un élément dans rootdir/out/thrust
+- lire rootdir/out/thrust
+- renvoyer la thrust correspondante.
+
+Conclusion ! thrust_t = C({s_t, e_t})
+
+On utilise C comme suit:
+
+    for(auto [observation, action, report] 
+	  : gdyn::views::controller(rocket, C) 
+	  | gdyn::views::orbit(rocket)                       
+	  | std::views::take(orbit_size)) {
+	  ....
+	  } 
+
+B## Données continues chronologiquement
+
+Apprendre une CXSOM comme pour A, c'est juste le feed qui change (cf ci-dessous).
+
+### rocket.cpp :
+Comme dans l'exemple 4-2:
+- loader predicted-controller.dat (issu de 4-1) => C*
+- on a un controleur qui marche.
+- Init: on lit t-1 : derniers éléments de rootdir/in/error, rootdir/in/speed => e_{t-1}, s_{t-1}.
+- on démarre une simu
+
+    for(auto [observation, action, report] 
+	  : gdyn::views::controller(rocket, C*) 
+	  | gdyn::views::orbit(rocket)                       
+	  | std::views::take(orbit_size)) {
+	    écrit rootdir/in/error, rootdir/in/speed, rootdir/in/thrust // ca continue les timelines error, speed, thrust.
+	  } 
+
+Nota: A n'a pas de sens pour des cartes récursives, alors que B sera utilisable.
+
+
+C## Apprendre une carte récursive à partir du contrôlleur parfait.
+
+C'est comme B, mais c'est l'architecture CXSOM qui change. Nota: on ne se servira pas de /in/speed.
+
+Recursive ?
+- E(E(t-1):ext, Th:ctxt, err:ext), TH(E:ctxt, thrust:ext) ***
+- E(E(t-1):ext, Th:ctxt, err:ext), TH(E:ctxt, Th(t-1):ext, thrust:ext)
+- E(A:ctxt, err), Th(A::ctx, thrust), A(E:ctxt, Th::ctxt, A(-1):ext)
+
+D##
+
+Une fois que C a appris, on construit une archi de prédiction de la thrust. On fait comme A.
+
+
+
+=======================
+
+Plan de travail:
+
+A, B, C , D
+
+
+
+
