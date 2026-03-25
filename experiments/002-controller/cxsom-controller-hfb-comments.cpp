@@ -142,6 +142,7 @@ bool try_read_scalar_at(cxsom::data::File& file,
   auto rs = file.read(at, data);
   if(rs != cxsom::data::FileAvailability::Ready) return false;
   out = static_cast<cxsom::data::Scalar&>(*data).value;
+  // HFB Have you tried to print this ?
   return true;
 }
 
