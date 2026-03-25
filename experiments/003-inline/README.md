@@ -11,3 +11,30 @@ Pour la phase de prediction, on ne fournit plus que l'erreur et la vitesse. Les 
 Le controlleur va devoir lire dans la timeline in l'erreur et la vitesse, les donner à cxsom qui va faire la relaxation des cartes pour fournir la valeur de poussée optimale.
 Une fois cette poussée optimale trouvée, le controlleur va l'ecrire dans root-dir/out/predict. Le controlleur de cette fusée va lui appliquer cette nouvelle valeur de poussée à la fusée et remplir à nouveau la timeline in. Et la boucle continue. 
 
+### Permet de creer un root-dir, et de configurer les variables pour le processeur.
+```
+mkdir root-dir
+make cxsom-set-config ROOT_DIR=./root-dir VENV=../cxsom-venv HOSTNAME=localhost PORT=10000 SKEDNET_PORT=20000 NB_THREADS=4
+```
+
+### Permet de reset le serveur et le root-dir
+```
+make cxsom-kill-processor
+make cxsom-clear-rootdir
+```
+
+### Permet de lancer le processeur et scanner le root-dir (pour le moment vide)
+```
+make cxsom-launch-processor
+make cxsom-scan-vars
+```
+
+### Permet d'envoyer les regles au processeur
+```
+make send-train-rules
+```
+
+### Permet d'envoyer les données au processeur
+```
+make send-train-data
+```
