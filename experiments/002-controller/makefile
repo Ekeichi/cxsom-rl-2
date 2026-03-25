@@ -57,16 +57,18 @@ restart-train:
 .PHONY: prediction
 prediction:
 	@python3 process-prediction-data.py
-	@g++ -o predictions/rocket-test predictions/rocket-test.cpp -I. -Ipredictions -std=c++20 `pkg-config --cflags gdyn rllib2` `pkg-config --libs gdyn rllib2`
+	@g++ -o predictions/rocket-test predictions/rocket-test.cpp -I. -I/usr/include/rllib2 -Ipredictions -std=c++20 `pkg-config --cflags gdyn rllib2` `pkg-config --libs gdyn rllib2`
 	@./predictions/rocket-test predictions/predicted-controller.dat
-	@gnuplot -p predictions/rocket-orbit.plot
+	@gnuplot -p predictions/rocket-orbit-cxsom.plot
 
-.PHONY: controller
-controller: controller.cpp
-	@g++ -std=c++20 -O2 -o controller controller.cpp \
+.PHONY: cxsom-controller
+cxsom-controller: cxsom-controller.cpp
+	@g++ -std=c++20 -O2 -o cxsom-controller cxsom-controller.cpp \
 		-I/usr/include/cxsom \
 		-I/usr/include/rllib2 \
 		-I. \
 		-Ipredictions \
 		`pkg-config --cflags gdyn rllib2` \
-		`pkg-config --libs gdyn rllib2`
+		`pkg-config --libs gdyn rllib2` \
+		-pthread
+	@./cxsom-controller `cat .cxsom-rootdir-config` `cat .cxsom-hostname-config` `cat .cxsom-port-config` $(DATA_FILE)
