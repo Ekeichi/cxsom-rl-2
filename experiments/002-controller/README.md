@@ -59,3 +59,6 @@ make clear-all
 make send-predict-rules SAVEPOINT=X
 make cxsom-controller
 ```
+
+## Questions
+- cxsom::processor::ping existe? J'ai regardé dans cxsom/cxsom/src/cxsom-processor.hpp

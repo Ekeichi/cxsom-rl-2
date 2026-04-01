@@ -71,4 +71,4 @@ cxsom-controller: cxsom-controller.cpp
 		`pkg-config --cflags gdyn rllib2` \
 		`pkg-config --libs gdyn rllib2` \
 		-pthread
-	@./cxsom-controller `cat .cxsom-rootdir-config` `cat .cxsom-hostname-config` `cat .cxsom-port-config` $(DATA_FILE)
+	@./cxsom-controller `cat .cxsom-rootdir-config` `cat .cxsom-hostname-config` `cat .cxsom-port-config`
