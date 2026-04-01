@@ -14,9 +14,8 @@
 #include <gdyn.hpp>
 #include <rllib2.hpp>
 
-#include "discrete-rocket-problem.hpp"
-#include "my_rocket_config.hpp"
-
+#include "data/discrete-rocket-problem.hpp"
+#include "data/my_rocket_config.hpp"
 // Like example 4-2, but writes observations into cxsom timelines.
 // Init: read last (error, speed) from root-dir/in/error and root-dir/in/speed
 // (i.e. e_{t-1}, s_{t-1}), then continue the simulation from there.
@@ -54,7 +53,7 @@ public:
 
 int main(int argc, char *argv[]) {
 
-  const char *controller_file = "predictions/rocket-discrete-controller.dat";
+  const char *controller_file = "data/rocket-discrete-controller.dat";
 
   // -------------------------------------------------------------------------
   // Load C* : the optimal thrust table from the learned controller (ex. 4-1).

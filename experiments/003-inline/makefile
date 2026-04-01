@@ -1,5 +1,5 @@
 include /usr/share/cxsom/cxsom-makefile
-DATA_FILE = ./predictions/rocket-orbit.dat
+DATA_FILE = ./data/rocket-orbit.dat
 CXSOM_HEADERS = $(wildcard *.hpp)
 
 xsom-%: xsom-%.cpp $(CXSOM_HEADERS)
@@ -22,6 +22,10 @@ send-train-data: rocket.cpp
 send-train-rules: xsom-train
 	@./xsom-train send `cat .cxsom-hostname-config` `cat .cxsom-port-config`
 
-.PHONY: show-string-% 
-show-string-%:
-	@python show-string.py --root-dir `cat .cxsom-rootdir-config` --target-map $* --data-file $(DATA_FILE)
+.PHONY: show-data
+show-data: show-data.py
+	@python3 show-data.py
+
+.PHONY: clear-all
+clear-all: 
+	@rm -rf `cat .cxsom-rootdir-config`/in  `cat .cxsom-rootdir-config`/wgt cat .cxsom-rootdir-config`/predict `cat .cxsom-rootdir-config`/rlx `cat .cxsom-rootdir-config`/out

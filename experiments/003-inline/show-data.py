@@ -31,20 +31,20 @@ print(f"Speed : {len(S)} pas lus  (t={t_s[0]}..{t_s[-1]})")
 
 # --- Plot ---
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 6), sharex=False)
-fig.suptitle("Données de la fusée (root-dir)", fontsize=14)
+fig.suptitle("Data", fontsize=14)
 
 ax1.plot(t_e, E, color='royalblue', linewidth=1)
 ax1.axhline(0, color='gray', linestyle='--', linewidth=0.8)
-ax1.set_ylabel("Error (normalisé)")
-ax1.set_title("Erreur de position")
+ax1.set_ylabel("Error")
+ax1.set_title("Error")
 ax1.grid(True, alpha=0.3)
 
 ax2.plot(t_s, S, color='tomato', linewidth=1)
 ax2.axhline(0, color='gray', linestyle='--', linewidth=0.8)
-ax2.set_ylabel("Speed (normalisé)")
-ax2.set_xlabel("Pas de temps (index cxsom)")
-ax2.set_title("Vitesse")
+ax2.set_ylabel("Speed")
+ax2.set_xlabel("Time")
+ax2.set_title("Speed")
 ax2.grid(True, alpha=0.3)
 
-plt.tight_layout()
+plt.tight_layout()  
 plt.show()

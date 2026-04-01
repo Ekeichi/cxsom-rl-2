@@ -38,3 +38,8 @@ make send-train-rules
 ```
 make send-train-data
 ```
+
+### Permet de visualiser les données
+```
+make show-data
+```
