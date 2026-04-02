@@ -5,6 +5,8 @@
 xsom-*
 recsom-*
 rocket-test
+rocket
+rocket-pred
 recdata-generation
 
 # Keep source and config files that match executable patterns
@@ -16,3 +18,5 @@ recdata-generation
 root-dir/
 002-inline/predictions/*.dat
 002-inline/predictions/*.plot
+003-inline/predictions/*.dat
+003-inline/predictions/*.plot

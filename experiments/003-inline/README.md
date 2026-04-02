@@ -11,6 +11,8 @@ Pour la phase de prediction, on ne fournit plus que l'erreur et la vitesse. Les 
 Le controlleur va devoir lire dans la timeline in l'erreur et la vitesse, les donner à cxsom qui va faire la relaxation des cartes pour fournir la valeur de poussée optimale.
 Une fois cette poussée optimale trouvée, le controlleur va l'ecrire dans root-dir/out/predict. Le controlleur de cette fusée va lui appliquer cette nouvelle valeur de poussée à la fusée et remplir à nouveau la timeline in. Et la boucle continue. 
 
+Cependant, comme les données sont issues de simulation, il y a beaucoup de moment où la fusée est stable au niveau de la consigne. De ce fait, les données d'erreur et de vitesse sont constantes sur de longues périodes, et on n'explore pas suffisament l'espace des possibles. Les preductions finales sont donc moins bonnes que sur l'expérience 001-explore, là où les données sont donné aléatoirement aux cartes.
+
 ### Permet de creer un root-dir, et de configurer les variables pour le processeur.
 ```
 mkdir root-dir
@@ -43,3 +45,29 @@ make send-train-data
 ```
 make show-data
 ```
+
+### Nettoyer le processeur avant prédiction
+```
+make cxsom-clear-processor
+```
+
+### Il est imperatif de nettoyer le root-dir
+```
+make clear-all
+```
+
+### Permet d'envoyer les regles au processeur
+```
+make send-predict-rules
+```
+
+### Permet d'envoyer les données au processeur
+```
+make send-predict-data
+```
+
+### Permet de visualiser les données
+```
+make show-prediction
+```
+

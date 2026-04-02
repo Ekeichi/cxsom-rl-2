@@ -26,6 +26,40 @@ send-train-rules: xsom-train
 show-data: show-data.py
 	@python3 show-data.py
 
+
+.PHONY: show-training-weights
+show-training-weights:
+	@python show-weights.py --timeline wgt --root-dir `cat .cxsom-rootdir-config` &
+
+.PHONY: clear-predict
+clear-predict: 
+	@rm -rf `cat .cxsom-rootdir-config`/predict `cat .cxsom-rootdir-config`/rlx `cat .cxsom-rootdir-config`/out
+
 .PHONY: clear-all
-clear-all: 
-	@rm -rf `cat .cxsom-rootdir-config`/in  `cat .cxsom-rootdir-config`/wgt cat .cxsom-rootdir-config`/predict `cat .cxsom-rootdir-config`/rlx `cat .cxsom-rootdir-config`/out
+clear-all: clear-predict
+	@rm -rf `cat .cxsom-rootdir-config`/in  `cat .cxsom-rootdir-config`/wgt  
+
+rocket-pred: rocket-pred.cpp
+	@g++ -std=c++20 -O2 -o rocket-pred rocket-pred.cpp \
+	-I/usr/include/cxsom \
+	-I/usr/include/rllib2 \
+	-I. \
+	-Ipredictions \
+	`pkg-config --cflags gdyn rllib2` \
+	`pkg-config --libs gdyn rllib2`
+
+.PHONY: send-predict-data
+send-predict-data: rocket-pred
+	@./rocket-pred `cat .cxsom-hostname-config` `cat .cxsom-port-config`
+	@echo "ping du processeur..."
+	@make --quiet cxsom-ping-processor
+
+.PHONY: send-predict-rules 
+send-predict-rules: xsom-predict
+	@./xsom-predict send `cat .cxsom-hostname-config` `cat .cxsom-port-config` -- $(SAVEPOINT)
+
+
+.PHONY: show-predictions
+show-predictions: show-prediction.py
+	@python show-prediction.py
+
