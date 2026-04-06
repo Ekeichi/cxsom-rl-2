@@ -20,17 +20,17 @@ int main(int argc, char *argv[]) {
 
   // à quoi ça sert ?
   std::string wtype_ext =
-      std::string("Map1D<Scalar>=") + std::to_string(MAP_SIZE);
+      std::string("Map2D<Scalar>=") + std::to_string(MAP_SIZE);
   std::string wtype_ctx =
-      std::string("Map1D<Pos1D>=") + std::to_string(MAP_SIZE);
+      std::string("Map2D<Pos2D>=") + std::to_string(MAP_SIZE);
   Params params;
 
   auto archi = cxsom::builder::architecture();
 
   // definition des cartes
-  auto errorMap = cxsom::builder::map::make_1D("error");
-  auto speedMap = cxsom::builder::map::make_1D("speed");
-  auto thrustMap = cxsom::builder::map::make_1D("thrust");
+  auto errorMap = cxsom::builder::map::make_2D("error");
+  auto speedMap = cxsom::builder::map::make_2D("speed");
+  auto thrustMap = cxsom::builder::map::make_2D("thrust");
 
   auto map_settings = build_map_settings(params);
 
@@ -52,15 +52,6 @@ int main(int argc, char *argv[]) {
   auto thrustWc1 = cxsom::builder::variable(
       "save", cxsom::builder::name("thrust") / cxsom::builder::name("Wc-1"),
       wtype_ctx, CACHE, TRACE, OPENED);
-
-  // autre couche pour permettre de tenir compte du BMU de la map à t-1
-  errorMap->external(errorMap, fx::match_triangle, params.p_match,
-                     cxsom::builder::timestep::previous(), fx::learn_triangle,
-                     params.p_learn_e);
-  speedMap->external(speedMap, fx::match_triangle, params.p_match,
-                     cxsom::builder::timestep::previous(), fx::learn_triangle,
-                     params.p_learn_e);
-
   errorMap->contextual(speedMap, fx::match_gaussian, params.p_match, errorWc0,
                        saved_weight_at);
   errorMap->contextual(thrustMap, fx::match_gaussian, params.p_match, errorWc1,
@@ -120,9 +111,6 @@ int main(int argc, char *argv[]) {
     std::ofstream dot_file("architecture/predict.dot");
     dot_file << archi->write_dot;
   }
-
-  for (auto map : archi->maps)
-    map->internals_random_at(0);
 
   thrust->var() << fx::value_at(kwd::at(thrustWe0->var(), saved_weight_at),
                                 thrustMap->output_BMU()->var()) |

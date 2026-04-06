@@ -47,9 +47,9 @@ public:
   }
 };
 
-#define TARGET_PERIOD 20 // seconds
-#define MARGIN 200
-#define EPISODE_DURATION 20 * TARGET_PERIOD
+#define TARGET_PERIOD 5 // seconds
+#define MARGIN 50
+#define EPISODE_DURATION 40 * TARGET_PERIOD
 
 int main(int argc, char *argv[]) {
 

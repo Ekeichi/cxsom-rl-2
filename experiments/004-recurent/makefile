@@ -39,6 +39,19 @@ clear-predict:
 clear-all: clear-predict
 	@rm -rf `cat .cxsom-rootdir-config`/in  `cat .cxsom-rootdir-config`/wgt  
 
+rocket-explore: rocket-explore.cpp
+	@g++ -std=c++20 -O2 -o rocket-explore rocket-explore.cpp \
+	-I/usr/include/cxsom \
+	-I/usr/include/rllib2 \
+	-I. \
+	-Ipredictions \
+	`pkg-config --cflags gdyn rllib2` \
+	`pkg-config --libs gdyn rllib2`
+
+.PHONY: send-explore-data
+send-explore-data: rocket-explore
+	@./rocket-explore `cat .cxsom-hostname-config` `cat .cxsom-port-config`
+
 rocket-pred: rocket-pred.cpp
 	@g++ -std=c++20 -O2 -o rocket-pred rocket-pred.cpp \
 	-I/usr/include/cxsom \
