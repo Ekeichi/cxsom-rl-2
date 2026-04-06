@@ -8,7 +8,10 @@ rocket-test
 rocket
 rocket-pred
 recdata-generation
-
+rocket-explore
+rocket-pred
+rocket
+cxsom-controller
 # Keep source and config files that match executable patterns
 !*.cpp
 !*.hpp
@@ -20,3 +23,7 @@ root-dir/
 002-inline/predictions/*.plot
 003-inline/predictions/*.dat
 003-inline/predictions/*.plot
+004-recurent/predictions/*.dat
+004-recurent/predictions/*.plot
+005-2D/predictions/*.dat
+005-2D/predictions/*.plot
